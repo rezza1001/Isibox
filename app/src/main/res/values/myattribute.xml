@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyView">
+        <attr name="m_color" format="color"  localization="suggested" />
+        <attr name="m_radius" format="float"  localization="suggested" />
+        <attr name="m_radiusLeftTop" format="float"  localization="suggested" />
+        <attr name="m_radiusLeftBottom" format="float"  localization="suggested" />
+        <attr name="m_radiusRightTop" format="float"  localization="suggested" />
+        <attr name="m_radiusRightBottom" format="float"  localization="suggested" />
+        <attr name="mLineSize" format="integer"  localization="suggested" />
+        <attr name="mLineColor" format="color"  localization="suggested" />
+    </declare-styleable>
+</resources>

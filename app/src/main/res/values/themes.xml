@@ -5,9 +5,8 @@
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.IsiBox" parent="Base.Theme.IsiBox" />
 
-    <style name="Theme.OutletApp" parent="Theme.AppCompat.NoActionBar" >
+    <style name="Theme.IsiBox" parent="Theme.AppCompat.NoActionBar" >
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item>
         <item name="colorAccent">@color/primaryLight</item>

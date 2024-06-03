@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">IsiBox</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="dont_have_an_account">Don\'t have an account ?</string>
+    <string name="register">Register now</string>
+    <string name="create_your_free_account">Create your free account</string>
+    <string name="sign_up_with">Sign Up with</string>
+    <string name="do_you_already_have_an_account">Do you already have an account?</string>
+    <string name="term_isibox_info">By signing up, you agree to Isibox</string>
+    <string name="terms_of_service">Terms of Service</string>
+    <string name="and">and</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="is_required">VALUE Harus diisi !!</string>
+    <string name="search_items_or_keywords">Search items or keywords</string>
+    <string name="find_what_today">Hari ini mau cari apa?</string>
+    <string name="create_request">Buat Request </string>
 </resources>

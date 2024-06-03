@@ -5,5 +5,20 @@
 
     <color name="primary">#1D9EFF</color>
     <color name="primaryDark">#3C84FC</color>
-    <color name="primaryLight">#1D9EFF</color>
+    <color name="primaryLight">#27B7FD</color>
+
+    <color name="grey">#9E9E9E</color>
+    <color name="orangeDark">#CE3C22</color>
+    <color name="orange">#EA411F</color>
+    <color name="orangeLight">#F46F52</color>
+    <color name="red">#E30000</color>
+    <color name="green">#1BA13E</color>
+    <color name="green2">#09AF00</color>
+
+    <color name="chocolateDark">#2E2A2C</color>
+    <color name="grey1">#747474</color>
+    <color name="grey2">#A7A5A6</color>
+    <color name="grey3">#D3D2D2</color>
+    <color name="grey4">#EBECEB</color>
+    <color name="grey5">#D4D9DF</color>
 </resources>
