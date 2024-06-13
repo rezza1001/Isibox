@@ -28,6 +28,9 @@ import com.rzc.isibox.R;
 import com.rzc.isibox.presentation.component.AlertDialog;
 import com.rzc.isibox.presentation.component.MyToast;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -209,6 +212,22 @@ public class Utility {
         else {
             return bundle.getString(key);
         }
+    }
+
+    public static String loadJSONFromAsset(Context context, String fileName) {
+        String json = null;
+        try {
+            InputStream is = context.getAssets().open(fileName);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, StandardCharsets.UTF_8);
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 
 }

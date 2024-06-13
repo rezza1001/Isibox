@@ -6,17 +6,17 @@ import android.view.View;
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyFragment;
 
-public class RequestFragment extends MyFragment {
+public class QuotesFragment extends MyFragment {
 
-    public static RequestFragment newInstance() {
+    public static QuotesFragment newInstance() {
         Bundle args = new Bundle();
-        RequestFragment fragment = new RequestFragment();
+        QuotesFragment fragment = new QuotesFragment();
         fragment.setArguments(args);
         return fragment;
     }
     @Override
     protected int setLayout() {
-        return R.layout.request_fragment_request;
+        return R.layout.request_fragment_quotes;
     }
 
     @Override

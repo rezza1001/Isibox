@@ -1,0 +1,44 @@
+[
+    {
+        "id":"1",
+        "name" : "Stephanie Lee",
+        "profile" : "https://newprofilepic.photo-cdn.net//assets/images/article/profile.jpg?90af0c8",
+        "productImg" :"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQul4Az3od6wsvIebuJjj6jSqN7VwYfLLSOvA&s",
+        "productName" : "Tas Fashion Wanita: Tote, Bahu, Crossbody",
+        "productCategory" : "Bags",
+        "productDescription" : "Crafted of signature coated canvas, the bag features double handles, a zip closure, an interior zip wall pocket and double slip wall pockets, also an exterior slip pocket. It comes with an optional long strap.",
+        "metric" : "Units",
+        "quantity" : 2,
+        "targetPrice" : 1500000,
+        "locale" : "id",
+        "address" : "Jakarta Utara, DKI Jakarta"
+    },
+    {
+        "id":"2",
+        "name" : "Ariyani",
+        "profile" : "https://img.buzzfeed.com/buzzfeed-static/static/2022-05/11/14/asset/82ea240a9e12/sub-buzz-2936-1652280422-21.jpg?downsize=900:*&output-format=auto&output-quality=auto",
+        "productImg" :"https://img.lazcdn.com/g/p/8a607963226782f4bbff7f3d99d3443c.jpg_720x720q80.jpg",
+        "productName" : "Tas Wanita Murah, Tas Selempang Cewek, Sling Bag Wanita",
+        "productCategory" : "Bags",
+        "productDescription" : "Detail produk dari Tas Wanita Murah, Tas Selempang Cewek, Sling Bag Wanita, Tas Grosir Wanita",
+        "metric" : "Units",
+        "quantity" : 2,
+        "targetPrice" : 1500000,
+        "locale" : "id",
+        "address" : "Jakarta Utara, DKI Jakarta"
+    },
+    {
+        "id":"3",
+        "name" : "Arman J.",
+        "profile" : "https://cdn.pixabay.com/photo/2020/05/17/20/21/cat-5183427_1280.jpg",
+        "productImg" :"https://jubelio-store.s3.ap-southeast-1.amazonaws.com/jogjasepatu/2023/02/11131419/rug-1676095508009-10.jpeg.jpg",
+        "productName" : "Nike Sepatu Bola Legend 9 Academy FG/MG - White/Black-Baltic Blue",
+        "productCategory" : "Spatu Sport",
+        "productDescription" : "Accelerator Speedkraft Core, opsi Speedkraft untuk entry level dan youth, dengan estetika yang identik dengan versi Elite nya. Dirancang dengan konsep retro futuristic, melalui penggunaan kombinasi upper 1 bagian PU Synthetic non woven backer dan Hadir dengan outsole TPU Hexaspeed khas accelerator core. 2",
+        "metric" : "Units",
+        "quantity" : 1,
+        "targetPrice" : 2500000,
+        "locale" : "id",
+        "address" : "Jakarta Utara, DKI Jakarta"
+    }
+]

@@ -1,6 +1,5 @@
 package com.rzc.isibox.presentation.main;
 
-import android.util.Log;
 import android.widget.FrameLayout;
 
 import androidx.fragment.app.Fragment;
@@ -10,7 +9,7 @@ import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.account.AccountFragment;
 import com.rzc.isibox.presentation.orders.OrdersFragment;
-import com.rzc.isibox.presentation.request.RequestFragment;
+import com.rzc.isibox.presentation.request.MainReqFragment;
 
 public class HomeActivity extends MyActivity {
 
@@ -41,7 +40,7 @@ public class HomeActivity extends MyActivity {
 
         switch (index){
             case 1 :
-                activeFragment = RequestFragment.newInstance();
+                activeFragment = MainReqFragment.newInstance();
                 fragmentTransaction.replace(frame_body.getId(), activeFragment, "request");
                 break;
             case 2 :

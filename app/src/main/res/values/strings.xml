@@ -14,4 +14,8 @@
     <string name="search_items_or_keywords">Search items or keywords</string>
     <string name="find_what_today">Hari ini mau cari apa?</string>
     <string name="create_request">Buat Request </string>
+    <string name="view_request">Lihat Permintaan</string>
+    <string name="my_profile">Profil Saya</string>
+    <string name="my_request">Request Saya</string>
+    <string name="request">Request</string>
 </resources>

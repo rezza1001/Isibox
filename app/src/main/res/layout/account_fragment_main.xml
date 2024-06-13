@@ -4,13 +4,93 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:text="ACCOUNT PAGE"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:fontFamily="@font/roboto_bold"
-        android:layout_centerInParent="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:id="@+id/rv_header"
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <TextView
+            android:text="@string/my_profile"
+            android:fontFamily="@font/roboto_bold"
+            android:textColor="@color/black"
+            android:textSize="17sp"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:fillViewport="true"
+        android:layout_below="@+id/rv_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <View
+                android:background="#FBFBFB"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+
+            <RelativeLayout
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/iv_profile"
+                    android:src="@drawable/default_profile"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"/>
+                <TextView
+                    android:text="Hi, Stephanie Lee"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_medium"
+                    android:layout_toEndOf="@+id/iv_profile"
+                    android:layout_toStartOf="@+id/iv_viewProfile"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/iv_viewProfile"
+                    android:src="@drawable/ic_forward"
+                    android:padding="13dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="45dp"
+                    android:layout_height="40dp"/>
+            </RelativeLayout>
+            <View
+                android:background="#FBFBFB"
+                android:layout_width="match_parent"
+                android:layout_height="10dp"/>
+            <com.rzc.isibox.presentation.account.ItemView
+                android:id="@+id/item_setting"
+                android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.rzc.isibox.presentation.account.ItemView
+                android:id="@+id/item_upgrade"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.rzc.isibox.presentation.account.ItemView
+                android:id="@+id/item_about"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </RelativeLayout>

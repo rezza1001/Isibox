@@ -2,6 +2,7 @@ package com.rzc.isibox.presentation.component;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -112,6 +113,10 @@ public class MyButton extends MyView {
     public void setCardCfg(float elevation, float radius){
         card_button.setCardElevation(elevation);
         card_button.setRadius(radius);
+    }
+
+    public void setTextSize(int size){
+        tv_button.setTextSize(TypedValue.COMPLEX_UNIT_SP, size);
     }
 
     public interface OnMyClickListener{
