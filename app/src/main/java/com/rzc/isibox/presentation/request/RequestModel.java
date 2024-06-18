@@ -1,6 +1,9 @@
 package com.rzc.isibox.presentation.request;
 
 import com.rzc.isibox.master.MySerializable;
+import com.rzc.isibox.tools.Utility;
+
+import java.util.Date;
 
 public class RequestModel extends MySerializable {
 
@@ -49,5 +52,9 @@ public class RequestModel extends MySerializable {
 
     public void setOffer(int offer) {
         this.offer = offer;
+    }
+
+    public Date getExpiredDate(){
+        return Utility.convert2Date(getExpired(),"dd-MM-yyyy HH:mm");
     }
 }

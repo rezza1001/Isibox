@@ -1,21 +1,21 @@
 package com.rzc.isibox.presentation.request;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.makeramen.roundedimageview.RoundedImageView;
 import com.rzc.isibox.R;
-import com.rzc.isibox.presentation.component.MyButton;
+import com.rzc.isibox.tools.Utility;
 
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHolder>{
 
@@ -31,13 +31,31 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         context = parent.getContext();
-        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.main_adapter,parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.request_adapter_request,parent, false);
         return new RequestAdapter.ViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RequestModel data = listProduct.get(position);
+        Glide.with(context).load(data.getImage()).into(holder.iv_image);
+        holder.tv_name.setText(data.getName());
+
+        String sExpired = context.getString(R.string.expired);
+        sExpired = sExpired +" "+ Utility.getDateString(data.getExpiredDate(),"dd MMM yyyy");
+        holder.tv_expired.setText(sExpired);
+
+        if (data.getOffer() == 0){
+            holder.tv_offer.setText(context.getResources().getString(R.string.no_offer));
+            holder.tv_offer.setTextColor(Color.parseColor("#FFB743"));
+        }
+        else {
+            String offer = context.getResources().getString(R.string.offer);
+            offer = data.getOffer()+" " + offer ;
+            holder.tv_offer.setText(offer);
+            holder.tv_offer.setTextColor(Color.parseColor("#3C84FC"));
+        }
+
 
 
     }
@@ -49,29 +67,16 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     }
 
     class ViewHolder extends RecyclerView.ViewHolder{
-        CircleImageView iv_profile;
-        ImageView iv_product,iv_flag;
-        TextView tv_name,tv_productName,tv_category,tv_description,tv_metric,tv_qty,tv_price,tv_created,tv_address;
-        MyButton btn_detail;
+        RoundedImageView iv_image;
+        TextView tv_name,tv_offer,tv_expired;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            iv_profile = itemView.findViewById(R.id.iv_profile);
+            iv_image = itemView.findViewById(R.id.iv_image);
             tv_name = itemView.findViewById(R.id.tv_name);
-            iv_product = itemView.findViewById(R.id.iv_product);
-            tv_productName = itemView.findViewById(R.id.tv_productName);
-            tv_category = itemView.findViewById(R.id.tv_category);
-            tv_description = itemView.findViewById(R.id.tv_description);
-            tv_metric = itemView.findViewById(R.id.tv_metric);
-            tv_qty = itemView.findViewById(R.id.tv_qty);
-            tv_price = itemView.findViewById(R.id.tv_price);
-            tv_created = itemView.findViewById(R.id.tv_created);
-            iv_flag = itemView.findViewById(R.id.iv_flag);
-            tv_address = itemView.findViewById(R.id.tv_address);
-            btn_detail = itemView.findViewById(R.id.btn_detail);
-            btn_detail.create(MyButton.TYPE.PRIMARY, context.getResources().getString(R.string.view_request));
-            btn_detail.setCardCfg(1,4);
-            btn_detail.setTextSize(12);
+            tv_offer = itemView.findViewById(R.id.tv_offer);
+            tv_expired = itemView.findViewById(R.id.tv_expired);
+
         }
     }
 }

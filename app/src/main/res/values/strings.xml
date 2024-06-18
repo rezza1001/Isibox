@@ -18,4 +18,14 @@
     <string name="my_profile">Profil Saya</string>
     <string name="my_request">Request Saya</string>
     <string name="request">Request</string>
+    <string name="expired">Date Expired</string>
+    <string name="no_offer">Belum Ada Penawaran</string>
+    <string name="offer">Penawaran</string>
+    <string name="request_qty">Jumlah pesanan</string>
+    <string name="price_target">Target Harga</string>
+    <string name="my_order">Pesanan Saya</string>
+    <string name="orders">Orders</string>
+    <string name="completed">Completed</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="date_created">Date Created</string>
 </resources>

@@ -8,7 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.account.AccountFragment;
-import com.rzc.isibox.presentation.orders.OrdersFragment;
+import com.rzc.isibox.presentation.orders.MainOrdersFragment;
 import com.rzc.isibox.presentation.request.MainReqFragment;
 
 public class HomeActivity extends MyActivity {
@@ -44,7 +44,7 @@ public class HomeActivity extends MyActivity {
                 fragmentTransaction.replace(frame_body.getId(), activeFragment, "request");
                 break;
             case 2 :
-                activeFragment = OrdersFragment.newInstance();
+                activeFragment = MainOrdersFragment.newInstance();
                 fragmentTransaction.replace(frame_body.getId(), activeFragment, "orders");
                 break;
             case 3 :

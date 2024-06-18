@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.rzc.isibox.presentation.component.MyRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:m_color="@color/white"
+    app:m_radius="5"
+    android:padding="7dp"
+    android:layout_marginBottom="10dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+   <com.rzc.isibox.presentation.component.MyRelativeLayout
+       app:m_color="@color/white"
+       app:m_radius="4"
+       app:mLineSize="1"
+       app:mLineColor="@color/grey3"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content">
+       <com.makeramen.roundedimageview.RoundedImageView
+           android:id="@+id/iv_image"
+           android:layout_margin="1dp"
+           android:src="@drawable/product_dummy"
+           android:scaleType="centerCrop"
+           android:layout_width="80dp"
+           android:layout_height="80dp"/>
+       <LinearLayout
+           android:layout_toEndOf="@+id/iv_image"
+           android:layout_marginTop="10dp"
+           android:layout_marginEnd="10dp"
+           android:layout_marginStart="10dp"
+           android:orientation="vertical"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:id="@+id/tv_name"
+               android:textColor="@color/black"
+               android:textSize="14sp"
+               android:fontFamily="@font/roboto_medium"
+               android:ellipsize="end"
+               android:lines="1"
+               android:text="Solid Color Large Capacity Foldable Cosmetic Bag"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+           <TextView
+               android:id="@+id/tv_offer"
+               android:textSize="13sp"
+               android:layout_marginTop="5dp"
+               android:textColor="#FFB743"
+               android:fontFamily="@font/roboto_regular"
+               android:text="Belum Ada Penawaran"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"/>
+           <TextView
+               android:id="@+id/tv_expired"
+               android:textColor="@color/grey1"
+               android:layout_marginBottom="5dp"
+               android:textSize="12sp"
+               android:fontFamily="@font/roboto_light"
+               android:text="Date Expired : 19 Dec 2022"
+               android:layout_width="wrap_content"
+               android:layout_gravity="end"
+               android:layout_height="wrap_content"/>
+       </LinearLayout>
+   </com.rzc.isibox.presentation.component.MyRelativeLayout>
+
+</com.rzc.isibox.presentation.component.MyRelativeLayout>

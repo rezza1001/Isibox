@@ -6,17 +6,17 @@ import android.view.View;
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyFragment;
 
-public class OrdersFragment extends MyFragment {
+public class CompleteFragment extends MyFragment {
 
-    public static OrdersFragment newInstance() {
+    public static CompleteFragment newInstance() {
         Bundle args = new Bundle();
-        OrdersFragment fragment = new OrdersFragment();
+        CompleteFragment fragment = new CompleteFragment();
         fragment.setArguments(args);
         return fragment;
     }
     @Override
     protected int setLayout() {
-        return R.layout.orders_fragment_main;
+        return R.layout.orders_fragment_myorder;
     }
 
     @Override

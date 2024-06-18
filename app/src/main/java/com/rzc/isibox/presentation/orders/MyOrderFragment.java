@@ -1,7 +1,6 @@
-package com.rzc.isibox.presentation.request;
+package com.rzc.isibox.presentation.orders;
 
 import android.annotation.SuppressLint;
-import android.net.http.QuicOptions;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,31 +13,29 @@ import com.rzc.isibox.master.MyFragment;
 
 import java.util.ArrayList;
 
-public class QuotesFragment extends MyFragment {
+public class MyOrderFragment extends MyFragment {
 
-    ArrayList<QuotesModel> listQuotes = new ArrayList<>();
-    QuotesAdapter adapter;
+    ArrayList<OrderModel> listOrders = new ArrayList<>();
+    OrderAdapter adapter;
 
-    RequestViewModel viewModel;
-
-
-    public static QuotesFragment newInstance() {
+    OrderViewModel viewModel;
+    public static MyOrderFragment newInstance() {
         Bundle args = new Bundle();
-        QuotesFragment fragment = new QuotesFragment();
+        MyOrderFragment fragment = new MyOrderFragment();
         fragment.setArguments(args);
         return fragment;
     }
     @Override
     protected int setLayout() {
-        return R.layout.request_fragment_quotes;
+        return R.layout.orders_fragment_myorder;
     }
 
     @Override
     protected void initLayout(View view) {
+
         RecyclerView rcv_data = view.findViewById(R.id.rcv_data);
         rcv_data.setLayoutManager(new LinearLayoutManager(mActivity));
-
-        adapter = new QuotesAdapter(listQuotes);
+        adapter = new OrderAdapter(listOrders);
         rcv_data.setAdapter(adapter);
     }
 
@@ -50,12 +47,12 @@ public class QuotesFragment extends MyFragment {
     @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void initData() {
-        viewModel = new ViewModelProvider(mActivity).get(RequestViewModel.class);
+        viewModel = new ViewModelProvider(mActivity).get(OrderViewModel.class);
         viewModel.init(mActivity);
 
-        listQuotes.clear();
-        viewModel.loadQuotes().observe(mActivity, quotesModels -> {
-            listQuotes.addAll(quotesModels);
+        viewModel.loadMyOrder().observe(mActivity, orderModels -> {
+            listOrders.clear();
+            listOrders.addAll(orderModels);
             adapter.notifyDataSetChanged();
         });
     }

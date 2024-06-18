@@ -1,4 +1,4 @@
-package com.rzc.isibox.presentation.request;
+package com.rzc.isibox.presentation.orders;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -14,21 +14,21 @@ import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyFragment;
 import com.rzc.isibox.presentation.component.MyRelativeLayout;
 
-public class MainReqFragment extends MyFragment {
+public class MainOrdersFragment extends MyFragment {
 
     MyRelativeLayout rv_request,rv_quotes;
     MyRelativeLayout rvSelected;
     FrameLayout frame_body;
 
-    public static MainReqFragment newInstance() {
+    public static MainOrdersFragment newInstance() {
         Bundle args = new Bundle();
-        MainReqFragment fragment = new MainReqFragment();
+        MainOrdersFragment fragment = new MainOrdersFragment();
         fragment.setArguments(args);
         return fragment;
     }
     @Override
     protected int setLayout() {
-        return R.layout.request_fragment_main;
+        return R.layout.orders_fragment_main;
     }
 
     @Override
@@ -38,7 +38,6 @@ public class MainReqFragment extends MyFragment {
         frame_body = view.findViewById(R.id.frame_body);
 
         switchMenu(rv_request);
-
     }
 
     @Override
@@ -68,12 +67,12 @@ public class MainReqFragment extends MyFragment {
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         Fragment activeFragment;
         if (rvSelected == rv_request){
-            activeFragment = RequestFragment.newInstance();
-            fragmentTransaction.replace(frame_body.getId(), activeFragment, "request");
+            activeFragment = MyOrderFragment.newInstance();
+            fragmentTransaction.replace(frame_body.getId(), activeFragment, "orders");
         }
         else {
-            activeFragment = QuotesFragment.newInstance();
-            fragmentTransaction.replace(frame_body.getId(), activeFragment, "quotes");
+            activeFragment = CompleteFragment.newInstance();
+            fragmentTransaction.replace(frame_body.getId(), activeFragment, "complete");
         }
 
         fragmentTransaction.detach(activeFragment);

@@ -1,0 +1,44 @@
+[
+  {
+    "productImage": "https://s.alicdn.com/@sc04/kf/H8baf76320a0b46579e2641cfa68d33a1b.jpg_300x300.jpg",
+    "id": "001",
+    "productName": "China manufacturer luxury women handbags pu leather tote set green shoulder bag retro style",
+    "distributorName" : "Distributor Tas Cantik",
+    "metric" : "Units",
+    "qty" : 2,
+    "grandTotal" : 500000,
+    "createdAt" : "22-06-2024 08:00",
+    "statusPay" : 1,
+    "statusPayName" : "Menunggu Pembayaran",
+    "statusAction" : 1,
+    "statusActionName" : "Sudah Melakukan Pembayaran"
+  },
+  {
+    "productImage": "https://s.alicdn.com/@sc04/kf/H8baf76320a0b46579e2641cfa68d33a1b.jpg_300x300.jpg",
+    "id": "001",
+    "productName": "China manufacturer luxury women handbags pu leather tote set green shoulder bag retro style",
+    "distributorName" : "Distributor Tas Cantik",
+    "metric" : "Units",
+    "qty" : 6,
+    "grandTotal" : 1500000,
+    "createdAt" : "22-06-2024 08:00",
+    "statusPay" : 2,
+    "statusPayName" : "Diproses",
+    "statusAction" : 2,
+    "statusActionName" : "Diproses"
+  },
+  {
+    "productImage": "https://s.alicdn.com/@sc04/kf/H8baf76320a0b46579e2641cfa68d33a1b.jpg_300x300.jpg",
+    "id": "001",
+    "productName": "China manufacturer luxury women handbags pu leather tote set green shoulder bag retro style",
+    "distributorName" : "Distributor Tas Cantik",
+    "metric" : "Units",
+    "qty" : 3,
+    "grandTotal" : 750000,
+    "createdAt" : "22-06-2024 08:00",
+    "statusPay" : 3,
+    "statusPayName" : "Terkirim",
+    "statusAction" : 3,
+    "statusActionName" : "Pesanan Diterima"
+  }
+]
