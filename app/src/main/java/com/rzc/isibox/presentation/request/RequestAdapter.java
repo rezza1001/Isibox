@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.rzc.isibox.R;
+import com.rzc.isibox.presentation.component.MyRelativeLayout;
 import com.rzc.isibox.tools.Utility;
 
 import java.util.ArrayList;
@@ -56,6 +57,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             holder.tv_offer.setTextColor(Color.parseColor("#3C84FC"));
         }
 
+        holder.rvly_root.setOnClickListener(v -> {
+            if (onActionListener != null){
+                onActionListener.onAction(data);
+            }
+        });
 
 
     }
@@ -69,6 +75,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     class ViewHolder extends RecyclerView.ViewHolder{
         RoundedImageView iv_image;
         TextView tv_name,tv_offer,tv_expired;
+
+        MyRelativeLayout rvly_root;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -76,7 +84,17 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_offer = itemView.findViewById(R.id.tv_offer);
             tv_expired = itemView.findViewById(R.id.tv_expired);
+            rvly_root = itemView.findViewById(R.id.rvly_root);
 
         }
+    }
+
+    protected OnActionListener onActionListener;
+    public void setOnActionListener(OnActionListener onActionListener){
+        this.onActionListener = onActionListener;
+    }
+
+    public interface OnActionListener{
+        void onAction(RequestModel data);
     }
 }

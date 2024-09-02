@@ -28,4 +28,21 @@
     <string name="completed">Completed</string>
     <string name="grand_total">Grand Total</string>
     <string name="date_created">Date Created</string>
+    <string name="photo_product">Foto Produk</string>
+    <string name="product_name">Nama Produk</string>
+    <string name="description">Penjelasan</string>
+    <string name="specification_and_price"><![CDATA[Spesifikasi & Harga]]></string>
+    <string name="quantity">Jumlah</string>
+    <string name="metrik">Metrik</string>
+    <string name="category">Kategori</string>
+    <string name="choose_category">Pilih Kategori</string>
+    <string name="next">Lanjut</string>
+    <string name="sending_time">Waktu Pengiriman</string>
+    <string name="sending">Pengiriman</string>
+    <string name="choose">Pilih</string>
+    <string name="insert">Masukan</string>
+    <string name="required">Harus diisi</string>
+    <string name="keywords">Kata Kunci</string>
+    <string name="reference_link">Referensi Link</string>
+    <string name="payment">Pembayaran</string>
 </resources>

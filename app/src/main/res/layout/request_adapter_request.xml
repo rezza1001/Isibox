@@ -9,6 +9,7 @@
     android:layout_height="wrap_content">
 
    <com.rzc.isibox.presentation.component.MyRelativeLayout
+       android:id="@+id/rvly_root"
        app:m_color="@color/white"
        app:m_radius="4"
        app:mLineSize="1"

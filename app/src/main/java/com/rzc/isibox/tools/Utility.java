@@ -230,4 +230,9 @@ public class Utility {
         return json;
     }
 
+    @SuppressLint("DiscouragedApi")
+    public static int getImageResourceId(Context context, String imageName) {
+        return context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+    }
+
 }

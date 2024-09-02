@@ -1,0 +1,17 @@
+[
+  {
+    "id" : "jne",
+    "value" : "JNE",
+    "iconName" : "sending_jne"
+  },
+  {
+    "id" : "jnt",
+    "value" : "JNT",
+    "iconName" : "sending_jnt"
+  },
+  {
+    "id" : "sicepat",
+    "value" : "SI-CEPAT",
+    "iconName" : "sending_sicepat"
+  }
+]

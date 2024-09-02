@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ln_images"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+        </LinearLayout>
+
+        <com.rzc.isibox.presentation.component.MyRelativeLayout
+            android:id="@+id/rv_pick"
+            app:mLineColor="@color/primaryDark"
+            app:mLineSize="1"
+            app:m_radius="4"
+            android:layout_marginStart="5dp"
+            android:layout_width="70dp"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_add_24"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:tint="@color/primaryDark" />
+        </com.rzc.isibox.presentation.component.MyRelativeLayout>
+    </LinearLayout>
+
+
+
+</HorizontalScrollView>

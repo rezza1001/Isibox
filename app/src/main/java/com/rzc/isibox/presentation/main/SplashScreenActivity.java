@@ -26,7 +26,7 @@ public class SplashScreenActivity extends MyActivity {
     @Override
     protected void initialData() {
         new Handler().postDelayed(() -> {
-            startActivity(new Intent(mActivity, HomeActivity.class));
+            startActivity(new Intent(mActivity, LoginActivity.class));
             mActivity.finish();
         },1000);
     }

@@ -1,0 +1,10 @@
+[
+  {
+    "id" : "Bank Transfer",
+    "value" : "Bank Transfer"
+  },
+  {
+    "id" : "COD",
+    "value" : "Cash On Delivery (COD)"
+  }
+]

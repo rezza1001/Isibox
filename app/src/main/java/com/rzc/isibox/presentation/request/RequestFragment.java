@@ -1,6 +1,7 @@
 package com.rzc.isibox.presentation.request;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -43,7 +44,10 @@ public class RequestFragment extends MyFragment {
 
     @Override
     protected void initListener() {
-
+        adapter.setOnActionListener(data -> {
+            Intent intent = new Intent(mActivity, DetailRequestActivity.class);
+            startActivity(intent);
+        });
     }
 
     @SuppressLint("NotifyDataSetChanged")

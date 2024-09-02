@@ -56,6 +56,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
         holder.tv_created.setText(sDate);
         holder.tv_address.setText(data.getAddress());
 
+        holder.btn_detail.setOnMyClickListener(view -> {
+            if (onSelectedListener != null){
+                onSelectedListener.onSelected(data);
+            }
+        });
+
     }
 
 
@@ -89,5 +95,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder>{
             btn_detail.setCardCfg(1,4);
             btn_detail.setTextSize(12);
         }
+    }
+
+
+    private OnSelectedListener onSelectedListener;
+    public void setOnSelectedListener(OnSelectedListener onSelectedListener){
+        this.onSelectedListener = onSelectedListener;
+    }
+
+    public interface OnSelectedListener{
+        void onSelected(MainModel data);
     }
 }

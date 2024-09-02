@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/rv_header"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_arrow_back"
+            android:padding="15dp"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="17sp"
+            android:text="Request Order"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+    <LinearLayout
+        android:id="@+id/ln_status"
+        android:layout_below="@id/rv_header"
+        android:weightSum="2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="9dp">
+        <View
+            android:background="#B7E1FF"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+        <View
+            android:background="@color/primaryDark"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"/>
+
+
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_below="@+id/ln_status"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:text="@string/keywords"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:background="#F2F7FF"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"/>
+
+            <com.rzc.isibox.presentation.component.MyEdiText
+                android:id="@+id/et_keyword"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+
+            <TextView
+                android:text="@string/sending_time"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:background="#F2F7FF"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"/>
+
+
+            <com.rzc.isibox.presentation.component.MyEdiText
+                android:id="@+id/edt_timeSend"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:text="@string/sending"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:background="#F2F7FF"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"/>
+
+            <RelativeLayout
+                android:id="@+id/rv_sending"
+                android:background="@drawable/bkg_editext"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="35dp">
+                <ImageView
+                    android:id="@+id/iv_sendingMethod"
+                    android:visibility="gone"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_centerVertical="true"
+                    android:layout_width="60dp"
+                    android:layout_height="20dp"/>
+                <TextView
+                    android:id="@+id/tv_sendingMethod"
+                    android:layout_toEndOf="@+id/iv_sendingMethod"
+                    android:textColor="@color/black"
+                    android:layout_toStartOf="@+id/iv_down3"
+                    android:textSize="14sp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="4dp"
+                    android:minHeight="35dp"
+                    android:hint="@string/sending"
+                    android:textColorHint="@color/grey3"
+                    android:gravity="center_vertical"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:fontFamily="@font/roboto_regular"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <ImageView
+                    android:id="@+id/iv_down3"
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="5dp"
+                    android:src="@drawable/ic_drop_down_24"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    app:tint="@color/grey1" />
+            </RelativeLayout>
+
+            <TextView
+                android:text="@string/payment"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:background="#F2F7FF"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"/>
+
+            <com.rzc.isibox.presentation.component.MyEdiText
+                android:id="@+id/et_payment"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <com.rzc.isibox.presentation.component.MyButton
+                android:id="@+id/btn_next"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"/>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+
+</RelativeLayout>

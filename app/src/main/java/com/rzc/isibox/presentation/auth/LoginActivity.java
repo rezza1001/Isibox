@@ -5,6 +5,7 @@ import android.content.Intent;
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.component.MyButton;
+import com.rzc.isibox.presentation.main.HomeActivity;
 
 public class LoginActivity extends MyActivity {
 
@@ -24,6 +25,11 @@ public class LoginActivity extends MyActivity {
     protected void initListener() {
         findViewById(R.id.tv_register).setOnClickListener(v -> {
             startActivity(new Intent(mActivity, RegisterActivity.class));
+            mActivity.finish();
+        });
+
+        btn_login.setOnMyClickListener(view -> {
+            startActivity(new Intent(mActivity, HomeActivity.class));
             mActivity.finish();
         });
     }

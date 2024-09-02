@@ -1,5 +1,7 @@
 package com.rzc.isibox.presentation.main;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -8,8 +10,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rzc.isibox.R;
+import com.rzc.isibox.data.VariableStatic;
 import com.rzc.isibox.master.MyFragment;
 import com.rzc.isibox.presentation.component.MyButton;
+import com.rzc.isibox.presentation.request.DetailRequestActivity;
+import com.rzc.isibox.presentation.request.RequestFormActivity;
 
 import java.util.ArrayList;
 
@@ -47,6 +52,13 @@ public class HomeFragment extends MyFragment {
 
     @Override
     protected void initListener() {
+        btn_request.setOnMyClickListener(view -> startActivity(new Intent(mActivity, RequestFormActivity.class)));
+
+        adapter.setOnSelectedListener(data -> {
+            Intent intent = new Intent(mActivity, DetailRequestActivity.class);
+            intent.putExtra(VariableStatic.DATA, data);
+            startActivity(intent);
+        });
 
     }
 
@@ -57,6 +69,7 @@ public class HomeFragment extends MyFragment {
         loadData();
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private void loadData(){
         viewModel.loadProduct().observe(mActivity, mainModels -> {
             listProduct.clear();
