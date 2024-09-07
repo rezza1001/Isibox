@@ -1,9 +1,15 @@
 package com.rzc.isibox.master;
 
+import static android.content.Context.RECEIVER_EXPORTED;
+
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +21,8 @@ import androidx.fragment.app.Fragment;
 
 
 import org.json.JSONObject;
+
+import java.util.Objects;
 
 public abstract class MyFragment extends Fragment {
 
@@ -65,9 +73,31 @@ public abstract class MyFragment extends Fragment {
         return view;
     }
 
-    BroadcastReceiver receiver = new BroadcastReceiver() {
+    protected BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            if (Objects.equals(intent.getAction(), MyActivity.BROADCAST_FINISH)){
+                mActivity.finish();
+            }
+            else if (Objects.equals(intent.getAction(), MyActivity.BROADCAST_REFRESH)){
+                Log.d(TAG,"BROADCAST_REFRESH");
+                onRefreshPage();
+            }
         }
     };
+
+    protected void onRefreshPage(){
+
+    }
+
+    @SuppressLint("UnspecifiedRegisterReceiverFlag")
+    protected void mRegisterReceiver(BroadcastReceiver receiver, IntentFilter intentFilter){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            mActivity.registerReceiver(receiver, intentFilter, RECEIVER_EXPORTED);
+        }
+        else {
+            mActivity.registerReceiver(receiver, intentFilter);
+        }
+
+    }
 }

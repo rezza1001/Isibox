@@ -7,8 +7,10 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Build;
 import android.os.Handler;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.WindowManager;
 
 import androidx.annotation.Nullable;
@@ -17,9 +19,12 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public abstract class MyActivity extends AppCompatActivity {
 
     public static final String BROADCAST_FINISH = "FINISH_PAGE";
+    public static final String BROADCAST_REFRESH = "REFRESH_PAGE";
     protected AppCompatActivity mActivity;
     protected static String TAG = "MyActivity";
 
@@ -49,11 +54,31 @@ public abstract class MyActivity extends AppCompatActivity {
     @SuppressLint("UnspecifiedRegisterReceiverFlag")
     protected void registerFinishPage(){
         mIntentFilter.addAction(BROADCAST_FINISH);
-        registerReceiver(receiver, mIntentFilter);
+        mRegisterReceiver(receiver, mIntentFilter);
+    }
+
+    protected void registerRefreshPage(){
+        mIntentFilter.addAction(BROADCAST_REFRESH);
+        mRegisterReceiver(receiver, mIntentFilter);
+    }
+    protected void mRegisterReceiver(BroadcastReceiver receiver, IntentFilter intentFilter){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            registerReceiver(receiver, intentFilter, RECEIVER_EXPORTED);
+        }
+        else {
+            registerReceiver(receiver, intentFilter);
+        }
     }
 
     protected void broadcastFinish(){
         sendBroadcast(new Intent(BROADCAST_FINISH));
+    }
+    protected void broadcastRefresh(){
+        sendBroadcast(new Intent(BROADCAST_REFRESH));
+    }
+
+    protected void onRefreshPage(){
+
     }
 
     protected void registerNotificationFB(){
@@ -81,8 +106,12 @@ public abstract class MyActivity extends AppCompatActivity {
     protected BroadcastReceiver receiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals(BROADCAST_FINISH)){
+            if (Objects.equals(intent.getAction(), BROADCAST_FINISH)){
                 mActivity.finish();
+            }
+            else if (Objects.equals(intent.getAction(), BROADCAST_REFRESH)){
+                Log.d(TAG,"BROADCAST_REFRESH");
+                onRefreshPage();
             }
 //            else  if (intent.getAction().equals(FirebaseMessageService.MY_ACTION)){
 //                String title = intent.getStringExtra("Title");
