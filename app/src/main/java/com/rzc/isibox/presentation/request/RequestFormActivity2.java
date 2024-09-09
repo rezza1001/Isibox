@@ -56,7 +56,7 @@ public class RequestFormActivity2 extends MyActivity {
     protected void initLayout() {
         btn_next = findViewById(R.id.btn_next);
         btn_next.create(MyButton.TYPE.PRIMARY,"Buat Permintaan Sekarang");
-        
+
         edt_timeSend = findViewById(R.id.edt_timeSend);
         edt_timeSend.create(MyEdiText.TYPE.SELECT,getResources().getString(R.string.sending_time));
         et_payment = findViewById(R.id.et_payment);
@@ -102,6 +102,11 @@ public class RequestFormActivity2 extends MyActivity {
     }
 
     private void tambahChip(String text){
+        if (text .isEmpty()){
+            Utility.showToastError(mActivity,"Keyword tidak boleh kosong");
+
+            return;
+        }
         ChoiceModel model = new ChoiceModel();
 
         model.setName(text);

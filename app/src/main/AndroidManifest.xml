@@ -42,7 +42,7 @@
         <activity android:name=".presentation.auth.RegisterActivity" android:screenOrientation="nosensor" android:windowSoftInputMode="adjustPan" />
         <activity android:name=".presentation.main.HomeActivity" android:screenOrientation="nosensor" android:windowSoftInputMode="adjustPan" />
         <activity android:name=".presentation.request.RequestFormActivity" android:screenOrientation="nosensor" android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".presentation.request.RequestFormActivity2" android:screenOrientation="nosensor" android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".presentation.request.RequestFormActivity2" android:screenOrientation="nosensor" android:windowSoftInputMode="adjustPan" android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar" />
         <activity android:name=".presentation.request.DetailRequestActivity" android:screenOrientation="nosensor" android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.PriceList" />
     </application>
