@@ -48,6 +48,7 @@ public class ChipFilterView extends MyView {
     @Override
     public void create() {
         super.create();
+        mData = new ArrayList<>();
         chgroup_choice.removeAllViews();
     }
 
@@ -57,6 +58,19 @@ public class ChipFilterView extends MyView {
         for (int i=0; i<data.size(); i++){
             chgroup_choice.addView(generateChip(data.get(i).getName(),data.get(i).isSelected(),data.get(i).getKey()));
         }
+    }
+    public void addChip(ChoiceModel data){
+        mData.add(data);
+        Integer key = mData.size();
+        String Key = key.toString();
+        Chip chip = generateChipDelAction(data.getName(),data.isSelected(),Key);
+        chip.setShapeAppearanceModel(setConfigRadius(2));
+        chip.setChipStrokeWidth(1);
+        chip.setChipStrokeColorResource(R.color.grey3);
+        chip.setChipBackgroundColorResource(R.color.white);
+        chip.setTextColor(Color.parseColor("#000000"));
+        chgroup_choice.addView(chip);
+
     }
 
     public void create(ArrayList<ChoiceModel> data, float radius, float stroke, int strokeColor, int background, int textColor){
@@ -92,10 +106,15 @@ public class ChipFilterView extends MyView {
     }
 
     public void remove(String key){
+        ChoiceModel data = null;
         for (int i=0; i<chgroup_choice.getChildCount(); i++){
             Chip chip = (Chip)chgroup_choice.getChildAt(i);
             if (chip.getTag().toString().equals(key)){
                 chgroup_choice.removeViewAt(i);
+                data = getChips(i);
+            }
+            if (data != null){
+                mData.remove(data);
             }
         }
     }
@@ -104,6 +123,18 @@ public class ChipFilterView extends MyView {
         chgroup_choice.removeAllViews();
     }
 
+    public Chip generateChipDelAction(String value, boolean isChecked, String tag){
+        Chip chip = (Chip) mActivity.getLayoutInflater().inflate(R.layout.component_chips_item, null, false);
+        chip.setText(value);
+        chip.setTag(tag);
+        chip.setChipBackgroundColorResource(R.color.primary);
+        chip.setChecked(isChecked);
+        chip.setId(ViewCompat.generateViewId());
+        chip.setTextColor(textColorStateList);
+        chip.setOnClickListener(v -> remove(tag));
+
+        return chip;
+    }
     public Chip generateChip(String value, boolean isChecked, String tag){
         Chip chip = (Chip) mActivity.getLayoutInflater().inflate(R.layout.component_chips_item, null, false);
         chip.setText(value);
@@ -205,6 +236,34 @@ public class ChipFilterView extends MyView {
     }
     public interface OnSelectedListener{
         void onSelected(String data, String key);
+    }
+
+    public String getDataBySeparator(String separator){
+        StringBuilder data = new StringBuilder();
+        for (int i=0; i<chgroup_choice.getChildCount(); i++){
+            ChoiceModel chip = getChips(i);
+            if (i ==0 ){
+                data = new StringBuilder(chip.getKey());
+            }
+            else {
+                data.append(separator).append(chip.getKey());
+            }
+        }
+        return data.toString();
+    }
+
+    public ArrayList<String> getDataArrayList(){
+        ArrayList<String> list = new ArrayList<>();
+        for (int i=0; i<chgroup_choice.getChildCount(); i++){
+            ChoiceModel chip = getChips(i);
+            if (i ==0 ){
+                list.add(chip.getKey());
+            }
+            else {
+                list.add(chip.getKey());
+            }
+        }
+        return list;
     }
 
 }

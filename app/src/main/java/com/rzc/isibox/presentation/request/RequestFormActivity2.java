@@ -2,17 +2,30 @@ package com.rzc.isibox.presentation.request;
 
 import android.content.Intent;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.component.Loading;
 import com.rzc.isibox.presentation.component.MyButton;
 import com.rzc.isibox.presentation.component.MyEdiText;
+import com.rzc.isibox.presentation.component.MyRelativeLayout;
+import com.rzc.isibox.presentation.component.chip.ChipFilterView;
+import com.rzc.isibox.presentation.component.chip.ChoiceModel;
 import com.rzc.isibox.presentation.component.option.OptionData;
 import com.rzc.isibox.presentation.component.option.OptionDialog;
 import com.rzc.isibox.tools.Utility;
@@ -23,11 +36,14 @@ public class RequestFormActivity2 extends MyActivity {
 
     MyButton btn_next;
     TextView tv_sendingMethod;
-    MyEdiText et_keyword,edt_timeSend,et_payment;
+    MyEdiText edt_timeSend,et_payment;
+    EditText et_keyword;
+    MyRelativeLayout rv_keyword,rv_tambah;
     ImageView iv_sendingMethod;
 
+    ArrayList<String> listKeywords = new ArrayList<>();
     RequestViewModel viewModel;
-
+    ChipFilterView chip_view;
     ArrayList<OptionData> listSendingTime = new ArrayList<>();
     ArrayList<OptionData> listSendingMethod = new ArrayList<>();
     ArrayList<OptionData> listPaymentMethod = new ArrayList<>();
@@ -40,7 +56,7 @@ public class RequestFormActivity2 extends MyActivity {
     protected void initLayout() {
         btn_next = findViewById(R.id.btn_next);
         btn_next.create(MyButton.TYPE.PRIMARY,"Buat Permintaan Sekarang");
-
+        
         edt_timeSend = findViewById(R.id.edt_timeSend);
         edt_timeSend.create(MyEdiText.TYPE.SELECT,getResources().getString(R.string.sending_time));
         et_payment = findViewById(R.id.et_payment);
@@ -49,9 +65,15 @@ public class RequestFormActivity2 extends MyActivity {
         tv_sendingMethod = findViewById(R.id.tv_sendingMethod);
         iv_sendingMethod = findViewById(R.id.iv_sendingMethod);
 
+
         et_keyword = findViewById(R.id.et_keyword);
-        et_keyword.create(MyEdiText.TYPE.TEXT,getResources().getString(R.string.keywords));
-        et_keyword.setTextInputSize(14);
+        rv_keyword = findViewById(R.id.rv_keyword);
+        rv_tambah = findViewById(R.id.rv_tambah);
+        chip_view  = findViewById(R.id.chip_view);
+
+        chip_view.create();
+
+
     }
 
     @Override
@@ -61,7 +83,37 @@ public class RequestFormActivity2 extends MyActivity {
         findViewById(R.id.rv_sending).setOnClickListener(v -> openSendingMethod());
         findViewById(R.id.iv_back).setOnClickListener(v -> mActivity.finish());
         btn_next.setOnMyClickListener(view -> send());
+        rv_tambah.setOnClickListener(v->{
+            tambahChip(et_keyword.getText().toString());
+            et_keyword.setText("");
+        });
+        et_keyword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent event) {
+                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (i == EditorInfo.IME_ACTION_DONE)) {
+                    tambahChip(textView.getText().toString());
+                    et_keyword.setText("");
+                    Log.d("CACAOKAN","Enter pressed "+ textView.getText());
+                }
+                return false;
+            }
+        });
+
     }
+
+    private void tambahChip(String text){
+        ChoiceModel model = new ChoiceModel();
+
+        model.setName(text);
+
+        chip_view.addChip(model);
+    }
+
+
+
+
+
+
 
     @Override
     protected void initialData() {

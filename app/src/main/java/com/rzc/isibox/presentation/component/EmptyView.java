@@ -2,6 +2,7 @@ package com.rzc.isibox.presentation.component;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rzc.isibox.R;
@@ -10,6 +11,7 @@ import com.rzc.isibox.master.MyView;
 public class EmptyView extends MyView {
 
     TextView tv_empty;
+    ImageView iv_empty;
     public EmptyView(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -22,6 +24,7 @@ public class EmptyView extends MyView {
     @Override
     protected void initLayout() {
         tv_empty = findViewById(R.id.tv_empty);
+        iv_empty = findViewById(R.id.iv_empty);
     }
 
     @Override
@@ -32,6 +35,13 @@ public class EmptyView extends MyView {
     public void create(String text) {
         super.create();
         tv_empty.setText(text);
+        hide();
+    }
+
+    public void create(String text,int icon) {
+        super.create();
+        tv_empty.setText(text);
+        iv_empty.setImageResource(icon);
         hide();
     }
 

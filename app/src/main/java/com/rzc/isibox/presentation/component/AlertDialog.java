@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,6 +19,7 @@ import com.rzc.isibox.master.MyDialog;
 public class AlertDialog extends MyDialog {
 
     private TextView tv_title,tv_description, tv_action;
+    private RelativeLayout rv_action;
     private ImageView iv_icon;
     private CardView card_body;
     private OnSelectedListener listener;
@@ -37,13 +39,14 @@ public class AlertDialog extends MyDialog {
 
     @Override
     protected void initLayout(View view) {
-        iv_icon = view.findViewById(R.id.iv_icon);
+
         card_body = view.findViewById(R.id.card_body);
         card_body.setVisibility(View.INVISIBLE);
 
+        rv_action = view.findViewById(R.id.rv_action);
         tv_action = view.findViewById(R.id.tv_action);
 
-        tv_action.setOnClickListener(view1 -> {
+        rv_action.setOnClickListener(view1 -> {
             if (listener != null){
                 listener.onSelected();
             }
@@ -60,21 +63,17 @@ public class AlertDialog extends MyDialog {
         tv_title.setText(title);
         tv_description.setText(description);
     }
-    public void showInfo(String title, String description, int icon) {
+    public void showInfo(String title, String description) {
         show();
         tv_title.setText(title);
         tv_description.setText(description);
-        iv_icon.setImageResource(icon);
-        int color = ContextCompat.getColor(mActivity, R.color.primary);
-        iv_icon.setColorFilter(color);
-        tv_title.setTextColor(color);
-        tv_action.setTextColor(color);
+
     }
-    public void showInfoImage(String title, String description, int icon) {
+    public void showInfoImage(String title, String description) {
         show();
         tv_title.setText(title);
         tv_description.setText(description);
-        iv_icon.setImageResource(icon);
+
         int color = ContextCompat.getColor(mActivity, R.color.primary);
         tv_title.setTextColor(color);
         tv_action.setTextColor(color);

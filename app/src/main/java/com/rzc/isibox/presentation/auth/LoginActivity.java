@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyActivity;
+import com.rzc.isibox.presentation.component.AlertDialog;
 import com.rzc.isibox.presentation.component.MyButton;
 import com.rzc.isibox.presentation.main.HomeActivity;
 
@@ -29,8 +30,15 @@ public class LoginActivity extends MyActivity {
         });
 
         btn_login.setOnMyClickListener(view -> {
-            startActivity(new Intent(mActivity, HomeActivity.class));
-            mActivity.finish();
+
+            AlertDialog dialog = new AlertDialog(this);
+            dialog.showInfo("Email Verification Sent!","Please check your email, a link for verification will be sent to your email");
+            dialog.setOnSelectedListener(()->{
+                startActivity(new Intent(mActivity, HomeActivity.class));
+                mActivity.finish();
+            });
         });
     }
+
+
 }

@@ -14,9 +14,9 @@
             android:clickable="true"
             android:focusable="true"
             android:background="?attr/selectableItemBackground"
-            android:src="@drawable/ic_arrow_back"
+            android:src="@drawable/back_figma"
             android:padding="15dp"
-            android:layout_width="60dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"/>
         <TextView
             android:textColor="@color/black"
@@ -73,13 +73,80 @@
                 android:layout_width="match_parent"
                 android:layout_height="25dp"/>
 
-            <com.rzc.isibox.presentation.component.MyEdiText
-                android:id="@+id/et_keyword"
+            <com.rzc.isibox.presentation.component.MyRelativeLayout
+                android:id="@+id/rv_keyword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/bkg_editext"
+                app:m_radius="4"
+                app:mLineColor="@color/grey3"
+                app:mLineSize = "1"
+
+                >
+
+                <EditText
+                    android:id="@+id/et_keyword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:layout_toStartOf="@+id/rv_tambah"
+                    android:background="#00FFFFFF"
+                    android:hint="Masukkan keywords"
+                    android:inputType="text"
+                    android:textColor="#043238"
+                    android:textColorHint="#33043238"
+                    android:textSize="14sp" />
+                <com.rzc.isibox.presentation.component.MyRelativeLayout
+                    android:id="@+id/rv_tambah"
+                    android:layout_width="70dp"
+                    app:m_radiusLeftTop="0"
+                    app:m_radiusLeftBottom="0"
+                    app:m_radiusRightTop="2"
+                    app:m_radiusRightBottom="2"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    app:m_color="@color/primary"
+                    >
+                    <TextView
+                        android:layout_centerInParent="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ADD"
+                        android:textColor="@color/white"
+                        android:fontFamily="@font/quicksand_bold"
+                        />
+
+                </com.rzc.isibox.presentation.component.MyRelativeLayout>
+
+            </com.rzc.isibox.presentation.component.MyRelativeLayout>
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:text="Kata kunci yang dipilih :"
+                android:fontFamily="@font/quicksand_regular"
+                android:textColor="@color/black"
+                />
+
+            <com.rzc.isibox.presentation.component.chip.ChipFilterView
+                android:id="@+id/chip_view"
+                android:layout_marginTop="15dp"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+
 
 
             <TextView
