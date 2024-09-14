@@ -57,7 +57,12 @@ public class MyOrderFragment extends MyFragment {
 
         viewModel.loadMyOrder().observe(mActivity, orderModels -> {
             listOrders.clear();
-            listOrders.addAll(orderModels);
+            for(OrderModel order : orderModels){
+                if(order.getStatusAction() != 4){
+                    listOrders.add(order);
+                }
+            }
+//            listOrders.addAll(orderModels);
             adapter.notifyDataSetChanged();
 
             if (listOrders.size() == 0){

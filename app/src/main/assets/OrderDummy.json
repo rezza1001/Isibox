@@ -40,5 +40,36 @@
     "statusPayName" : "Terkirim",
     "statusAction" : 3,
     "statusActionName" : "Pesanan Diterima"
+  },
+
+  {
+    "productImage": "https://liquipedia.net/commons/images/a/af/Ame_PGL_Wallachia_Season_1.jpg",
+    "id": "001",
+    "productName": "Tas keren dari cina merek ame ame",
+    "distributorName" : "AMe Ame",
+    "metric" : "Units",
+    "qty" : 3,
+    "grandTotal" : 950000,
+    "createdAt" : "22-12-2024 08:00",
+    "statusPay" : 3,
+    "statusPayName" : "Terkirim",
+    "statusAction" : 4,
+    "statusActionName" : "Selesai"
+  },
+
+
+  {
+    "productImage": "https://liquipedia.net/commons/images/5/52/Yatoro_2023_Team_Spirit.png",
+    "id": "001",
+    "productName": "Tas keren dari cina merek yatoro",
+    "distributorName" : "yatoro",
+    "metric" : "Units",
+    "qty" : 3,
+    "grandTotal" : 1050000,
+    "createdAt" : "14-01-2024 19:00",
+    "statusPay" : 3,
+    "statusPayName" : "Terkirim",
+    "statusAction" : 4,
+    "statusActionName" : "Selesai"
   }
 ]

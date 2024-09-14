@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.rzc.isibox.presentation.component.MyRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    app:m_color="@color/white"
+    app:m_radius="4"
+
+    android:layout_marginBottom="10dp"
+    android:layout_marginHorizontal="10dp">
+    <LinearLayout
+        android:weightSum="5"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent">
+
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:layout_centerVertical="true"
+                android:id="@+id/iv_image"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/product_dummy"
+                android:scaleType="centerCrop"
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_weight="3"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:fontFamily="@font/quicksand_regular"
+                android:textSize="15sp"
+                android:text="Cute Rice Cooker"
+                android:textColor="@color/black" />
+            <RelativeLayout
+
+                android:layout_marginTop="5dp"
+
+                android:layout_below="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:id="@+id/iv_store"
+                    android:src="@drawable/ic_box"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"/>
+                <TextView
+                    android:id="@+id/tv_store"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/iv_store"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:text="Penjual Nasi Bakar"
+                    android:textColor="@color/black"
+                    />
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/tv_store"
+                    android:id="@+id/iv_verified"
+                    android:src="@drawable/ic_verified"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_marginStart="5dp"
+                    app:tint="@color/grey2" />
+
+            </RelativeLayout>
+
+
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:paddingHorizontal="5dp"
+            android:paddingVertical="5dp"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <TextView
+                android:id="@+id/tv_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
+                android:text="Jul, 28 2022"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+
+                />
+
+            <com.rzc.isibox.presentation.component.MyRelativeLayout
+
+                android:layout_marginTop="5dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
+                app:m_color="#12CD7F"
+                app:m_radius="20"
+                >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:fontFamily="@font/quicksand_regular"
+                    android:text="Selesai"
+                    android:textColor="@color/white"
+                    android:textSize="10sp" />
+
+            </com.rzc.isibox.presentation.component.MyRelativeLayout>
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_regular"
+                android:text="Grand Total"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_marginTop="2dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Rp 10.240.000"
+                android:textColor="@color/black"
+                android:textSize="10sp" />
+
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+
+
+</com.rzc.isibox.presentation.component.MyRelativeLayout>

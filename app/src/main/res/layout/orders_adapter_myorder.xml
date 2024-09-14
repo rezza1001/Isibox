@@ -5,6 +5,7 @@
     app:m_radius="4"
     android:paddingTop="15dp"
     android:layout_marginBottom="10dp"
+    android:layout_marginHorizontal="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
