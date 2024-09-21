@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rvl_root"
+    android:clickable="true"
+    android:focusable="true"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="3dp"
+    >
+
+
+    <LinearLayout
+        android:id="@+id/ln_body"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/iv_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/check_box"
+            android:layout_gravity="center_vertical"
+            />
+        <TextView
+            android:layout_marginStart="10dp"
+            android:id="@+id/tv_value"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Stock Habis"
+            />
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

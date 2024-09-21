@@ -2,6 +2,7 @@ package com.rzc.isibox.presentation.orders;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -11,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyFragment;
 import com.rzc.isibox.presentation.component.EmptyView;
+import com.rzc.isibox.presentation.component.option.OptionData;
 
 import java.util.ArrayList;
 
@@ -46,6 +48,26 @@ public class MyOrderFragment extends MyFragment {
 
     @Override
     protected void initListener() {
+        adapter.setListener(new OrderAdapter.OnItemClickListener() {
+            @Override
+            public void CancelListener(OrderModel model) {
+                OrderCancelDialog dialog = new OrderCancelDialog(mActivity);
+                ArrayList<OptionData> listOption = new ArrayList<>();
+                listOption.add(new OptionData("Stock Habis"));
+                listOption.add(new OptionData("Penjual belum menerima uang pembayaran"));
+                listOption.add(new OptionData("Pengiriman Terlambat"));
+                listOption.add(new OptionData("Alasan tidak bisa disebutkan"));
+
+                dialog.show();
+                dialog.setOptionData(listOption);
+                Log.d("","");
+            }
+
+            @Override
+            public void AcceptListener(OrderModel model) {
+                Log.d("","");
+            }
+        });
 
     }
 

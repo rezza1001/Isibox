@@ -63,6 +63,17 @@
                 android:layout_height="16dp"
                 app:tint="@color/green" />
         </LinearLayout>
+        <TextView
+            android:layout_marginTop="3dp"
+            android:id="@+id/tv_address"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:textSize="13sp"
+            android:fontFamily="@font/roboto_light"
+            android:text="DKI Jakarta, Jakarta Utara"
+            />
 
     </LinearLayout>
 
@@ -236,5 +247,64 @@
             android:textSize="14sp" />
 
     </com.rzc.isibox.presentation.component.MyRelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/ln_action"
+        android:visibility="gone"
+        android:weightSum="2"
+        android:layout_below="@+id/ln_body2"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="33dp">
+        <com.rzc.isibox.presentation.component.MyRelativeLayout
+            android:id="@+id/rv_cancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:m_radius="4"
+            app:mLineSize="1"
+            app:m_color="#F84F53"
+            android:layout_marginEnd="5dp"
+            android:focusable="true"
+            android:clickable="true"
+            >
+            <TextView
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Cancel Pesanan"
+                android:fontFamily="@font/quicksand_regular"
+                />
+
+        </com.rzc.isibox.presentation.component.MyRelativeLayout>
+
+        <com.rzc.isibox.presentation.component.MyRelativeLayout
+            android:id="@+id/rv_accept"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:m_radius="4"
+            app:mLineSize="1"
+            app:m_color="#3C84FC"
+            android:focusable="true"
+            android:clickable="true"
+            >
+
+            <TextView
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="Kirim Pesanan"
+                android:fontFamily="@font/quicksand_regular"
+                />
+
+        </com.rzc.isibox.presentation.component.MyRelativeLayout>
+
+    </LinearLayout>
 
 </com.rzc.isibox.presentation.component.MyRelativeLayout>

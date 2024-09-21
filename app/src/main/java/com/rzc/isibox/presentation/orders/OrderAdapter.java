@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.rzc.isibox.tools.Utility;
 import java.util.ArrayList;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
+    OnItemClickListener listener;
 
     Context context;
 
@@ -28,6 +30,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
 
     public OrderAdapter(ArrayList<OrderModel> list){
         listProduct = list;
+    }
+
+    public void setListener(OnItemClickListener listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -51,12 +57,30 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
         holder.tv_created.setText(Utility.getDateString(data.getCreatedDate(),"MMM, dd yyyy"));
         holder.tv_payStatus.setText(data.getStatusActionName());
 
+        if(!data.getAddress().isEmpty()){
+            holder.tv_address.setText(data.getAddress());
+            holder.tv_address.setVisibility(View.VISIBLE);
+        }
+
         if (data.getStatusAction() == 2){
             holder.ln_payStatus.setVisibility(View.GONE);
+            holder.ln_action.setVisibility(View.VISIBLE);
         }
         else {
             holder.ln_payStatus.setVisibility(View.VISIBLE);
         }
+
+        holder.rv_cancel.setOnClickListener(v->{
+            if(listener != null){
+                listener.CancelListener(data);
+            }
+        });
+
+        holder.rv_accept.setOnClickListener(v->{
+            if(listener != null){
+                listener.AcceptListener(data);
+            }
+        });
     }
 
 
@@ -68,9 +92,10 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
     static class ViewHolder extends RecyclerView.ViewHolder{
         RoundedImageView iv_image;
         ImageView iv_verified;
-        TextView tv_name,tv_from,tv_qty,tv_status,tv_metric,tv_grandTotal,tv_created,tv_payStatus;
+        TextView tv_name,tv_from,tv_qty,tv_status,tv_metric,tv_grandTotal,tv_created,tv_payStatus,tv_address;
         MyLinearLayout rv_status;
-        MyRelativeLayout ln_payStatus;
+        LinearLayout ln_action;
+        MyRelativeLayout ln_payStatus,rv_cancel,rv_accept;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -86,7 +111,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder>{
             tv_created = itemView.findViewById(R.id.tv_created);
             tv_payStatus = itemView.findViewById(R.id.tv_payStatus);
             ln_payStatus = itemView.findViewById(R.id.ln_payStatus);
-
+            tv_address = itemView.findViewById(R.id.tv_address);
+            ln_action = itemView.findViewById(R.id.ln_action);
+            rv_cancel = itemView.findViewById(R.id.rv_cancel);
+            rv_accept = itemView.findViewById(R.id.rv_accept);
         }
+    }
+    public interface OnItemClickListener{
+        void CancelListener(OrderModel model);
+        void AcceptListener(OrderModel model);
     }
 }

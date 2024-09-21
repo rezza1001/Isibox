@@ -9,6 +9,7 @@ public class OrderModel extends MySerializable {
     private String id;
     private String productName;
     private String distributorName;
+    private String address = "";
     private String productImage;
     private String metric;
     private int qty;
@@ -113,6 +114,17 @@ public class OrderModel extends MySerializable {
 
     public void setStatusActionName(String statusActionName) {
         this.statusActionName = statusActionName;
+    }
+
+    public String getAddress() {
+        if (address.isEmpty() || address == null){
+            return "";
+        }
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public Date getCreatedDate(){
