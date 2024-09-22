@@ -6,7 +6,9 @@ import androidx.activity.OnBackPressedCallback;
 
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyActivity;
+import com.rzc.isibox.presentation.component.AlertDialog;
 import com.rzc.isibox.presentation.component.MyButton;
+import com.rzc.isibox.presentation.main.HomeActivity;
 
 public class RegisterActivity extends MyActivity {
 
@@ -25,6 +27,15 @@ public class RegisterActivity extends MyActivity {
     @Override
     protected void initListener() {
         findViewById(R.id.tv_signIn).setOnClickListener(v -> handleBackPress());
+
+        btn_signup.setOnMyClickListener(view -> {
+            AlertDialog dialog = new AlertDialog(this);
+            dialog.showInfo("Email Verification Sent!","Please check your email, a link for verification will be sent to your email");
+            dialog.setOnSelectedListener(()->{
+                startActivity(new Intent(mActivity, HomeActivity.class));
+                mActivity.finish();
+            });
+        });
 
         OnBackPressedCallback callback = new OnBackPressedCallback(true) {
             @Override

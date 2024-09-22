@@ -20,6 +20,8 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyActivity;
+import com.rzc.isibox.presentation.component.AlertDialog;
+import com.rzc.isibox.presentation.component.ConfirmDialog;
 import com.rzc.isibox.presentation.component.Loading;
 import com.rzc.isibox.presentation.component.MyButton;
 import com.rzc.isibox.presentation.component.MyEdiText;
@@ -82,7 +84,7 @@ public class RequestFormActivity2 extends MyActivity {
         et_payment.setOnActionListener(view -> openPaymentMethod());
         findViewById(R.id.rv_sending).setOnClickListener(v -> openSendingMethod());
         findViewById(R.id.iv_back).setOnClickListener(v -> mActivity.finish());
-        btn_next.setOnMyClickListener(view -> send());
+        btn_next.setOnMyClickListener(view -> showDialog());
         rv_tambah.setOnClickListener(v->{
             tambahChip(et_keyword.getText().toString());
             et_keyword.setText("");
@@ -160,6 +162,43 @@ public class RequestFormActivity2 extends MyActivity {
         });
     }
 
+
+    private void showDialog(){
+        ConfirmDialog dialog = new ConfirmDialog(mActivity);
+        dialog.show2(ConfirmDialog.TYPE.GREEN,"Verifikasi Nomor","Nomor Whatsapp yang terdaftar padaa akun ini adalah +62 08123013213123",R.drawable.icon_md_warning);
+        dialog.setTextAction("Ganti Nomor","Lanjutkan");
+        dialog.setOnActionListener(new ConfirmDialog.OnActionListener() {
+            @Override
+            public void onProcess(String note) {
+                send();
+            }
+
+            @Override
+            public void onProces2() {
+                dialog.dismiss();
+                changeNumberDialog();
+            }
+        });
+    }
+
+    private void changeNumberDialog(){
+        ConfirmDialog dialogNo = new ConfirmDialog(mActivity);
+        dialogNo.show(ConfirmDialog.TYPE.ORANGE,"Ganti Nomor","Masukkan No Whatsapp yang aktif",R.drawable.icon_md_warning);
+        dialogNo.showInputNote();
+        dialogNo.setHint("Nomor Whatsapp");
+        dialogNo.setRequiredNote();
+        dialogNo.setOnActionListener(new ConfirmDialog.OnActionListener() {
+            @Override
+            public void onProcess(String note) {
+                send();
+            }
+
+            @Override
+            public void onProces2() {
+            }
+        });
+
+    }
     private void send(){
         Loading.showLoading(mActivity,"Please wait..");
         broadcastFinish();

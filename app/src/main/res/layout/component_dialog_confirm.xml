@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundDialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_body"
+        app:cardUseCompatPadding="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
+        app:cardElevation="5dp"
+        app:cardCornerRadius="6dp"
+        app:cardBackgroundColor="@color/white"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="44dp">
+                <ImageView
+                    android:id="@+id/iv_icon"
+                    android:src="@drawable/icon_md_warning"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"/>
+
+                <TextView
+                    android:id="@+id/tv_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Warning Header Information"
+                    android:textColor="@color/black"
+                    android:textSize="15sp" />
+            </LinearLayout>
+            <View
+                android:id="@+id/vw_line"
+                android:background="@color/orange"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:id="@+id/tv_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="25dp"
+                android:fontFamily="@font/quicksand_regular"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:text="Anda yakin untuk menolak permintaan perjalanan dinas dari Muhamad Elando dengan No. Perdin 2023-09/PD/002 "
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+            <com.rzc.isibox.presentation.component.MyEdiText
+                android:id="@+id/et_note"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:layout_marginBottom="15dp"
+                android:weightSum="2"
+                android:orientation="horizontal"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <com.rzc.isibox.presentation.component.MyButton
+                    android:id="@+id/btn_cancel"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"/>
+                <View
+                    android:layout_width="1dp"
+                    android:layout_height="1dp"/>
+                <com.rzc.isibox.presentation.component.MyButton
+                    android:id="@+id/btn_process"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="55dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>
