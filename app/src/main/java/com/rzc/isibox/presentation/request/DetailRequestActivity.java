@@ -1,5 +1,6 @@
 package com.rzc.isibox.presentation.request;
 
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import java.util.Date;
 
 public class DetailRequestActivity extends MyActivity {
 
+    ImageView iv_back,ic_share;
     ImageSliderView slider_view;
     LinearLayout ln_value;
     ChipFilterView chip_view;
@@ -33,12 +35,20 @@ public class DetailRequestActivity extends MyActivity {
         chip_view    = findViewById(R.id.chip_view);
         tv_created    = findViewById(R.id.tv_created);
         tv_address    = findViewById(R.id.tv_address);
+        iv_back    = findViewById(R.id.iv_back);
+        ic_share    = findViewById(R.id.ic_share);
     }
 
     @Override
     protected void initListener() {
+        iv_back.setOnClickListener(v ->{
+            mActivity.finish();
+        });
 
-
+        ic_share.setOnClickListener(v->{
+            RequestShareDialog dialog = new RequestShareDialog(mActivity);
+            dialog.show("Women Bag");
+        });
 
     }
 
