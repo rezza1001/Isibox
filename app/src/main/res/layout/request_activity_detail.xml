@@ -267,19 +267,21 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
             <RelativeLayout
+                android:id="@+id/rv_action"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_margin="15dp"
                 android:background="@color/primary"
                 >
+
                 <TextView
+                    android:id="@+id/tv_action"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
-                    android:text="KIRIM PENAWARAN"
                     android:fontFamily="@font/roboto_bold"
-                    android:textColor="@color/white"
-                    />
+                    android:text="KIRIM PENAWARAN"
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
 
