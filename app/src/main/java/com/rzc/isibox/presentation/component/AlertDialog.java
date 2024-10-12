@@ -106,7 +106,7 @@ public class AlertDialog extends MyDialog {
 
     public void showFailed(String message){
         show("Gagal",message);
-        iv_icon.setImageResource(R.drawable.icon_md_warning);
+//        iv_icon.setImageResource(R.drawable.icon_md_warning);
         tv_title.setTextColor(Color.parseColor("#f93b37"));
         tv_action.setTextColor(Color.parseColor("#f93b37"));
 

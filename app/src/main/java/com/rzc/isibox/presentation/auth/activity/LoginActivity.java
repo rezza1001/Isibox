@@ -1,4 +1,4 @@
-package com.rzc.isibox.presentation.auth;
+package com.rzc.isibox.presentation.auth.activity;
 
 import android.content.Intent;
 

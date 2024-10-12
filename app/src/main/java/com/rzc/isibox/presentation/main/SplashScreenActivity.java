@@ -5,7 +5,7 @@ import android.os.Handler;
 
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyActivity;
-import com.rzc.isibox.presentation.auth.LoginActivity;
+import com.rzc.isibox.presentation.auth.activity.LoginActivity;
 
 public class SplashScreenActivity extends MyActivity {
     @Override

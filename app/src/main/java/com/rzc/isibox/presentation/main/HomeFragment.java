@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rzc.isibox.R;
-import com.rzc.isibox.data.VariableStatic;
+import com.rzc.isibox.data.Global;
 import com.rzc.isibox.master.MyFragment;
 import com.rzc.isibox.presentation.component.MyButton;
 import com.rzc.isibox.presentation.request.DetailRequestActivity;
@@ -56,7 +56,7 @@ public class HomeFragment extends MyFragment {
 
         adapter.setOnSelectedListener(data -> {
             Intent intent = new Intent(mActivity, DetailRequestActivity.class);
-            intent.putExtra(VariableStatic.DATA, data);
+            intent.putExtra(Global.DATA, data);
             startActivity(intent);
         });
 
