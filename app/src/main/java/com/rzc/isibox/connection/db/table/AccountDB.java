@@ -16,7 +16,7 @@ public class AccountDB extends MasterDB {
     public static final String TAG          = "AccountDB";
     public static final String TABLE_NAME   = "ACCOUNT_DB";
 
-    public static final String ID = "id";
+    public static final String USERID = "userId";
     public static final String EMAIL = "email";
     public static final String NAME = "name";
     public static final String PHONE = "phone";
@@ -29,7 +29,7 @@ public class AccountDB extends MasterDB {
     public String getCreateTable() {
         String create = "create table " + TABLE_NAME + " "
                 + "(" +
-                " " + ID + " varchar(50) NULL," +
+                " " + USERID + " varchar(50) NULL," +
                 " " + EMAIL + " varchar(200) NULL," +
                 " " + NAME + " varchar(200) NULL," +
                 " " + PHONE + " varchar(10) NULL," +
@@ -49,7 +49,7 @@ public class AccountDB extends MasterDB {
     @Override
     protected AccountDB build(Cursor res) {
         AccountDB cartDB = new AccountDB();
-        cartDB.model.setUser_id(res.getString(res.getColumnIndex(ID)));
+        cartDB.model.setUser_id(res.getString(res.getColumnIndex(USERID)));
         cartDB.model.setEmail(res.getString(res.getColumnIndex(EMAIL)));
         cartDB.model.setName(res.getString(res.getColumnIndex(NAME)));
         cartDB.model.setPhone(res.getString(res.getColumnIndex(PHONE)));
@@ -62,7 +62,7 @@ public class AccountDB extends MasterDB {
     @Override
     protected void buildSingle(Cursor res) {
         model = new AccountModel();
-        model.setAddress(res.getString(res.getColumnIndex(ID)));
+        model.setUser_id(res.getString(res.getColumnIndex(USERID)));
         model.setEmail(res.getString(res.getColumnIndex(EMAIL)));
         model.setName(res.getString(res.getColumnIndex(NAME)));
         model.setPhone(res.getString(res.getColumnIndex(PHONE)));
@@ -72,7 +72,7 @@ public class AccountDB extends MasterDB {
 
     public ContentValues createContentValues(){
         ContentValues contentValues = new ContentValues();
-        contentValues.put(ID, model.getUser_id());
+        contentValues.put(USERID, model.getUser_id());
         contentValues.put(EMAIL, model.getEmail());
         contentValues.put(NAME, model.getName());
         contentValues.put(PHONE, model.getPhone());

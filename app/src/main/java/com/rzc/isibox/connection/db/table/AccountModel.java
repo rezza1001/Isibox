@@ -4,7 +4,7 @@ package com.rzc.isibox.connection.db.table;
 import com.rzc.isibox.master.MySerializable;
 
 public class AccountModel extends MySerializable {
-    private String user_id;
+    private String userId;
     private String email;
     private String name;
     private String phone;
@@ -12,11 +12,11 @@ public class AccountModel extends MySerializable {
     private String token;
 
     public String getUser_id() {
-        return user_id;
+        return userId;
     }
 
-    public void setUser_id(String user_id) {
-        this.user_id = user_id;
+    public void setUser_id(String userId) {
+        this.userId = userId;
     }
 
     public String getEmail() {

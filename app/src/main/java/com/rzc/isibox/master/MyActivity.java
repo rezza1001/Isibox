@@ -17,6 +17,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.rzc.isibox.connection.db.table.AccountDB;
+import com.rzc.isibox.connection.db.table.AccountModel;
+
 import org.json.JSONObject;
 
 import java.util.Objects;
@@ -29,6 +32,7 @@ public abstract class MyActivity extends AppCompatActivity {
     protected static String TAG = "MyActivity";
 
     protected IntentFilter mIntentFilter;
+    protected AccountModel accountModel;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +44,10 @@ public abstract class MyActivity extends AppCompatActivity {
         mActivity = this;
         TAG = mActivity.getClass().getSimpleName();
         mIntentFilter = new IntentFilter();
+
+        AccountDB accountDB = new AccountDB();
+        accountDB.getData(this);
+        accountModel = accountDB.model;
 
         initLayout();
         initListener();

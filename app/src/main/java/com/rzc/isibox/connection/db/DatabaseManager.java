@@ -16,7 +16,7 @@ public class DatabaseManager extends SQLiteOpenHelper {
     public static final String TAG = "DatabaseManager";
 
     public static final String DATABASE_NAME = "ISI_BOX.db";
-    private static final int DB_VERSION      = 1;
+    private static final int DB_VERSION      = 4;
     private static ArrayList<MasterDB> tables = new ArrayList<>();
 
     private Context mContext;
