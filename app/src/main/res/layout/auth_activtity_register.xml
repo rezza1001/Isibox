@@ -78,6 +78,7 @@
             android:textSize="15sp" />
 
         <EditText
+            android:visibility="gone"
             android:id="@+id/et_address"
             android:layout_width="match_parent"
             android:layout_height="45dp"

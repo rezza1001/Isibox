@@ -100,10 +100,10 @@ public class RegisterActivity extends MyActivity {
             return;
         }
 
-        if(et_address.getText().toString().isEmpty()){
-            Utility.showToastError(mActivity,"Mohon isi field address");
-            return;
-        }
+//        if(et_address.getText().toString().isEmpty()){
+//            Utility.showToastError(mActivity,"Mohon isi field address");
+//            return;
+//        }
 
         if(et_password.getText().toString().isEmpty()){
             Utility.showToastError(mActivity,"Mohon isi field password");
@@ -111,7 +111,7 @@ public class RegisterActivity extends MyActivity {
         }
 
 
-        viewModel.registerAccount(et_name.getText().toString(),et_email.getText().toString(),et_phone.getText().toString(),et_address.getText().toString(),et_password.getText().toString()).observe(mActivity,apiResponse -> {
+        viewModel.registerAccount(et_name.getText().toString(),et_email.getText().toString(),et_phone.getText().toString(),"",et_password.getText().toString()).observe(mActivity,apiResponse -> {
             if(apiResponse.getCode() == 200){
                 AlertDialog dialog = new AlertDialog(this);
                 dialog.show("Berhasil",apiResponse.getMessage()+". Silahkan login dengan akun yang terdaftar");
