@@ -1,4 +1,4 @@
-package com.rzc.isibox.presentation.request;
+package com.rzc.isibox.presentation.request.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -14,6 +14,7 @@ import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.rzc.isibox.R;
 import com.rzc.isibox.presentation.component.MyRelativeLayout;
+import com.rzc.isibox.presentation.request.model.RequestListModel;
 import com.rzc.isibox.tools.Utility;
 
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
     Context context;
 
-    ArrayList<RequestModel> listProduct;
+    ArrayList<RequestListModel> listProduct;
 
-    public RequestAdapter(ArrayList<RequestModel> list){
+    public RequestAdapter(ArrayList<RequestListModel> list){
         listProduct = list;
     }
 
@@ -38,11 +39,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        RequestModel data = listProduct.get(position);
+        RequestListModel data = listProduct.get(position);
         Glide.with(context).load(data.getImage()).into(holder.iv_image);
         holder.tv_name.setText(data.getName());
 
-        String sExpired = context.getString(R.string.expired);
+        String sExpired = context.getString(R.string.date_created);
         sExpired = sExpired +" "+ Utility.getDateString(data.getExpiredDate(),"dd MMM yyyy");
         holder.tv_expired.setText(sExpired);
 
@@ -95,6 +96,6 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
     }
 
     public interface OnActionListener{
-        void onAction(RequestModel data);
+        void onAction(RequestListModel data);
     }
 }

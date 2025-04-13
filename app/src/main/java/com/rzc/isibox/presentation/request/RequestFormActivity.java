@@ -5,11 +5,17 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.rzc.isibox.R;
+import com.rzc.isibox.data.Global;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.component.MyButton;
 import com.rzc.isibox.presentation.component.MyEdiText;
 import com.rzc.isibox.presentation.component.option.OptionData;
 import com.rzc.isibox.presentation.component.option.OptionDialog;
+import com.rzc.isibox.presentation.request.model.RequestParamModel;
+import com.rzc.isibox.presentation.request.view.ImageChooserView;
+import com.rzc.isibox.presentation.request.vm.ImageViewModel;
+import com.rzc.isibox.presentation.request.vm.RequestViewModel;
+import com.rzc.isibox.tools.Utility;
 
 import java.util.ArrayList;
 
@@ -37,6 +43,7 @@ public class RequestFormActivity extends MyActivity {
 
         et_description = findViewById(R.id.et_description);
         et_description.create(MyEdiText.TYPE.MULTILINE, getResources().getString(R.string.description));
+        et_description.setMinHeight(4);
 
         et_reference = findViewById(R.id.et_reference);
         et_reference.create(MyEdiText.TYPE.TEXT, getResources().getString(R.string.reference_link));
@@ -98,8 +105,63 @@ public class RequestFormActivity extends MyActivity {
     }
 
     private void next(){
+        if (isInvalidInput(et_nameProduct)){
+            return;
+        }
+        if (isInvalidInput(et_description)){
+            return;
+        }
+        if (isInvalidInput(et_qty)){
+            return;
+        }
+        if (isInvalidInput(et_metric)){
+            return;
+        }
+        if (isInvalidInput(et_price)){
+            return;
+        }
+        if (isInvalidInput(et_category)){
+            return;
+        }
+        if (view_chooserImage.getAllPhoto().isEmpty()){
+            Utility.showAlertError(mActivity, "Silahkan pilih foto produk terlebih dahulu !");
+            return;
+        }
+        if (view_chooserImage.getAllPhoto().size() > 6){
+            Utility.showAlertError(mActivity, "Maksimal 6 foto produk !");
+            return;
+        }
+
+        RequestParamModel model = new RequestParamModel();
+        model.setProductName(et_nameProduct.getValue());
+        model.setProductDescription(et_description.getValue());
+        model.setQty(Integer.parseInt(et_qty.getValue()));
+        model.setMetrik(et_metric.getValue());
+        model.setPrice(Long.parseLong(et_price.getValue()));
+        model.setCategory(et_category.getValue());
+        model.setLink(et_reference.getValue());
+        model.setImagesPath(view_chooserImage.getAllPhotoPath());
+
         Intent intent = new Intent(mActivity, RequestFormActivity2.class);
+        intent.putExtra(Global.DATA, model);
         startActivity(intent);
+
+    }
+
+    private boolean isInvalidInput(MyEdiText et){
+        if (et.getType() == MyEdiText.TYPE.CURRENCY || et.getType() == MyEdiText.TYPE.NUMBER){
+            if (et.getValue().equals("0")){
+                Utility.showAlertError(mActivity, et.getErrorMessage());
+                return true;
+            }
+        }
+        else {
+            if (et.getValue().isEmpty()){
+                Utility.showAlertError(mActivity, et.getErrorMessage());
+                return true;
+            }
+        }
+        return false;
     }
 
 }

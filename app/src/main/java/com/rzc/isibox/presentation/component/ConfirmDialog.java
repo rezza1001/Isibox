@@ -111,7 +111,7 @@ public class ConfirmDialog extends MyDialog {
         btn_cancel.setTitle("Ganti Nomor");
         btn_cancel.setOnMyClickListener(v->{
             if(onActionListener != null){
-                onActionListener.onProces2();
+                onActionListener.onCancel();
             }
         });
         if (icon != 0){
@@ -119,6 +119,11 @@ public class ConfirmDialog extends MyDialog {
         }
         configUI(type);
 
+    }
+
+    public void setTextButton(String yes, String no){
+        btn_cancel.setTitle(no);
+        btn_process.setTitle(yes);
     }
 
     public void show(TYPE type, String title, SpannableString description, int icon){
@@ -211,6 +216,6 @@ public class ConfirmDialog extends MyDialog {
     }
     public interface OnActionListener{
         void onProcess(String note);
-        void onProces2();
+        void onCancel();
     }
 }

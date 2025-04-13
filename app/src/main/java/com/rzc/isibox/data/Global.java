@@ -10,4 +10,7 @@ public class Global {
     public static final String URL = "url";
     public static final String TYPE = "type";
 
+    public static String BROADCAST_REFRESH = "BROADCAST_REFRESH";
+    public static String BROADCAST_GPS = "BROADCAST_GPS";
+
 }

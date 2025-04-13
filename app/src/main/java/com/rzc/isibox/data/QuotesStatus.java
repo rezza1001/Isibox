@@ -1,4 +1,4 @@
-package com.rzc.isibox.presentation.request;
+package com.rzc.isibox.data;
 
 public enum QuotesStatus {
 

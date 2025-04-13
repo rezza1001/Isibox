@@ -256,12 +256,7 @@ public class ChipFilterView extends MyView {
         ArrayList<String> list = new ArrayList<>();
         for (int i=0; i<chgroup_choice.getChildCount(); i++){
             ChoiceModel chip = getChips(i);
-            if (i ==0 ){
-                list.add(chip.getKey());
-            }
-            else {
-                list.add(chip.getKey());
-            }
+            list.add(chip.getKey());
         }
         return list;
     }

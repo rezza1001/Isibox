@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/white"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/rv_header"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
+        <ImageView
+            android:id="@+id/iv_back"
+            android:clickable="true"
+            android:focusable="true"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/back_figma"
+            android:padding="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"/>
+        <TextView
+            android:textColor="@color/black"
+            android:layout_centerInParent="true"
+            android:fontFamily="@font/roboto_bold"
+            android:textSize="17sp"
+            android:text="Titik Lokasi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_below="@id/rv_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <fragment
+            android:id="@+id/map"
+            android:layout_above="@+id/ln_result"
+            android:name="com.google.android.gms.maps.SupportMapFragment"
+            app:uiRotateGestures="true"
+            app:uiTiltGestures="true"
+            app:uiZoomGestures="true"
+            app:cameraTilt="30"
+            app:cameraZoom="13"
+            app:mapType="normal"
+            app:uiZoomControls="true"
+            app:mapColorScheme="light"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+        <RelativeLayout
+            android:layout_alignTop="@+id/map"
+            android:layout_alignBottom="@id/map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:src="@drawable/ic_target"
+                android:layout_centerInParent="true"
+                android:layout_width="34dp"
+                android:layout_height="34dp"
+                app:tint="@color/primary" />
+        </RelativeLayout>
+
+
+        <com.rzc.isibox.presentation.component.MyLinearLayout
+            android:id="@+id/ln_mylocation"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:gravity="center"
+            app:m_color="#ccE1F5FE"
+            app:m_radius="20"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="10dp"
+            android:layout_above="@+id/ln_result"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp">
+
+            <ImageView
+                android:layout_marginEnd="4dp"
+                android:src="@drawable/ic_target"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                app:tint="@color/primary" />
+
+            <TextView
+                android:textColor="@color/primary"
+                android:textSize="13sp"
+                android:fontFamily="@font/roboto_bold"
+                android:text="Lokasi Saat ini"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        </com.rzc.isibox.presentation.component.MyLinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ln_result"
+            android:layout_alignParentBottom="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/tv_address"
+                android:text="QR88+33J West Rawa, South Jakarta City, Jakarta"
+                android:fontFamily="@font/roboto_regular"
+                android:textSize="12sp"
+                android:textColor="@color/grey1"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.rzc.isibox.presentation.component.MyButton
+                android:id="@+id/btn_add"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"/>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</RelativeLayout>

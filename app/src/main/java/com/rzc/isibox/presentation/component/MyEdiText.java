@@ -148,7 +148,7 @@ public class MyEdiText extends MyView {
         }
         else  if (type == TYPE.MULTILINE){
             et_input.setSingleLine(false);
-            et_input.setMaxLines(3);
+            et_input.setMaxLines(10);
             et_input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) et_input.getLayoutParams();
             lp.height = RelativeLayout.LayoutParams.WRAP_CONTENT;
@@ -191,6 +191,10 @@ public class MyEdiText extends MyView {
     public void setHint(String hint){
         et_input.setHint(hint);
         tv_input.setHint(hint);
+    }
+
+    public void setMinHeight(int line){
+        et_input.setMinLines(line);
     }
 
     public String getValue(){
@@ -315,6 +319,9 @@ public class MyEdiText extends MyView {
         });
     }
 
+    public TYPE getType() {
+        return type;
+    }
 
     private OnActionListener onActionListener;
     public void setOnActionListener(OnActionListener onActionListener){

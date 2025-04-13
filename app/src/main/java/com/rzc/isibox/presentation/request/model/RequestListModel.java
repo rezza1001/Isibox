@@ -1,17 +1,17 @@
-package com.rzc.isibox.presentation.request;
+package com.rzc.isibox.presentation.request.model;
 
 import com.rzc.isibox.master.MySerializable;
 import com.rzc.isibox.tools.Utility;
 
 import java.util.Date;
 
-public class RequestModel extends MySerializable {
+public class RequestListModel extends MySerializable {
 
     private String id;
     private String name;
     private String image;
 
-    private String expired;
+    private String reqDate;
     private int offer = 0;
 
     public String getId() {
@@ -38,12 +38,12 @@ public class RequestModel extends MySerializable {
         this.image = image;
     }
 
-    public String getExpired() {
-        return expired;
+    public String getReqDate() {
+        return reqDate;
     }
 
-    public void setExpired(String expired) {
-        this.expired = expired;
+    public void setReqDate(String reqDate) {
+        this.reqDate = reqDate;
     }
 
     public int getOffer() {
@@ -55,6 +55,6 @@ public class RequestModel extends MySerializable {
     }
 
     public Date getExpiredDate(){
-        return Utility.convert2Date(getExpired(),"dd-MM-yyyy HH:mm");
+        return Utility.convert2Date(getReqDate(),"yyyy-MM-dd HH:mm");
     }
 }

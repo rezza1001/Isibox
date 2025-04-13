@@ -1,11 +1,12 @@
-package com.rzc.isibox.presentation.request;
+package com.rzc.isibox.presentation.request.view;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
@@ -26,6 +27,8 @@ import com.rzc.isibox.tools.PermissionChecker;
 import com.rzc.isibox.tools.Utility;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
 public class ImageChooserView extends MyView {
@@ -54,11 +57,11 @@ public class ImageChooserView extends MyView {
     }
 
     @Override
-    protected void create() {
+    public void create() {
         super.create();
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         if (requestCode == 1 && resultCode == Activity.RESULT_OK){
             if (data == null){
                 Utility.showToastError(mActivity,"Terjadi Kesalahan");
@@ -128,5 +131,17 @@ public class ImageChooserView extends MyView {
                 FileProcessing.deleteImage(file);
             }
         });
+    }
+
+    public ArrayList<File> getAllPhoto(){
+        return listFile;
+    }
+
+    public ArrayList<String> getAllPhotoPath(){
+        ArrayList<String> listPath = new ArrayList<>();
+        for (File file : listFile){
+            listPath.add(file.getAbsolutePath());
+        }
+        return listPath;
     }
 }

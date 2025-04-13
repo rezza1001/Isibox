@@ -1,7 +1,6 @@
 package com.rzc.isibox.presentation.request;
 
 import android.annotation.SuppressLint;
-import android.net.http.QuicOptions;
 import android.os.Bundle;
 import android.view.View;
 
@@ -11,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyFragment;
+import com.rzc.isibox.presentation.request.adapter.QuotesAdapter;
+import com.rzc.isibox.presentation.request.model.QuotesModel;
+import com.rzc.isibox.presentation.request.vm.RequestViewModel;
 
 import java.util.ArrayList;
 

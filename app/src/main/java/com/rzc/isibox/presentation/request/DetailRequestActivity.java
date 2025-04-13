@@ -3,12 +3,17 @@ package com.rzc.isibox.presentation.request;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.rzc.isibox.R;
+import com.rzc.isibox.connection.api.EndpointURL;
+import com.rzc.isibox.data.Global;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.component.ConfirmDialog;
 import com.rzc.isibox.presentation.component.KeyValueView;
@@ -16,12 +21,15 @@ import com.rzc.isibox.presentation.component.chip.ChipFilterView;
 import com.rzc.isibox.presentation.component.chip.ChoiceModel;
 import com.rzc.isibox.presentation.component.slider.ImageModel;
 import com.rzc.isibox.presentation.component.slider.ImageSliderView;
+import com.rzc.isibox.presentation.main.MainModel;
+import com.rzc.isibox.presentation.request.model.MyRequestDetailModel;
+import com.rzc.isibox.presentation.request.view.RequestShareDialog;
+import com.rzc.isibox.presentation.request.vm.RequestViewModel;
+import com.rzc.isibox.tools.MyCurrency;
 import com.rzc.isibox.tools.Utility;
 
 import java.util.ArrayList;
 import java.util.Date;
-
-import okhttp3.internal.Util;
 
 public class DetailRequestActivity extends MyActivity {
 
@@ -29,8 +37,13 @@ public class DetailRequestActivity extends MyActivity {
     ImageSliderView slider_view;
     LinearLayout ln_value;
     ChipFilterView chip_view;
-    TextView tv_created,tv_address,tv_action;
+    TextView tv_created,tv_address,tv_action, tv_creator;
+    TextView tv_name,tv_metric,tv_qty,tv_price,tv_description;
     RelativeLayout rv_action;
+    RequestViewModel viewModel;
+    MainModel mainModel;
+    MyRequestDetailModel detailModel;
+
     @Override
     protected int setLayout() {
         return R.layout.request_activity_detail;
@@ -47,6 +60,12 @@ public class DetailRequestActivity extends MyActivity {
         ic_share    = findViewById(R.id.ic_share);
         tv_action    = findViewById(R.id.tv_action);
         rv_action    = findViewById(R.id.rv_action);
+        tv_name    = findViewById(R.id.tv_name);
+        tv_metric    = findViewById(R.id.tv_metric);
+        tv_qty    = findViewById(R.id.tv_qty);
+        tv_price    = findViewById(R.id.tv_price);
+        tv_description    = findViewById(R.id.tv_description);
+        tv_creator    = findViewById(R.id.tv_creator);
     }
 
     @Override
@@ -54,6 +73,8 @@ public class DetailRequestActivity extends MyActivity {
         iv_back.setOnClickListener(v ->{
             mActivity.finish();
         });
+
+        findViewById(R.id.rv_map).setOnClickListener(v -> openMap());
 
         ic_share.setOnClickListener(v->{
             RequestShareDialog dialog = new RequestShareDialog(mActivity);
@@ -71,17 +92,13 @@ public class DetailRequestActivity extends MyActivity {
                     }
 
                     @Override
-                    public void onProces2() {
+                    public void onCancel() {
 
                     }
                 });
 
             }else{
-
-
                 dialog.show(ConfirmDialog.TYPE.RED,"Mengubah status","Apakah anda yakin ingin mengubah status barang menjadi sudah dipesan?",R.drawable.icon_md_warning);
-
-
                 dialog.setOnActionListener(new ConfirmDialog.OnActionListener() {
                     @Override
                     public void onProcess(String note) {
@@ -90,12 +107,11 @@ public class DetailRequestActivity extends MyActivity {
                     }
 
                     @Override
-                    public void onProces2() {
+                    public void onCancel() {
 
                     }
                 });
             }
-
 
         });
 
@@ -104,34 +120,53 @@ public class DetailRequestActivity extends MyActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void initialData() {
-        int offer = getIntent().getIntExtra("NAMA_REQUEST",0);
-        if (offer != 0) {
-            tv_action.setText("TANDAI SUDAH DIPESAN");
+        mainModel = (MainModel) getIntent().getSerializableExtra(Global.DATA);
+        if (mainModel == null){
+            mActivity.finish();
+            return;
         }
-        ArrayList<ImageModel> models = new ArrayList<>();
-        models.add(new ImageModel("https://images.tokopedia.net/img/cache/500-square/hDjmkQ/2023/9/28/7702649e-1a0b-46b1-9381-bb7e64dcb5c3.jpg.webp"));
-        models.add(new ImageModel("https://images.tokopedia.net/img/cache/700/hDjmkQ/2023/9/28/7675d37d-2419-42f5-9ccf-5f9ed473292e.jpg.webp"));
-        models.add(new ImageModel("https://images.tokopedia.net/img/cache/500-square/hDjmkQ/2023/9/28/bec180b0-a71b-456d-a7ec-6434218f9634.jpg.webp"));
-        models.add(new ImageModel("https://images.tokopedia.net/img/cache/100-square/hDjmkQ/2023/9/28/b5e717f2-9ba3-4508-8891-2dc0cb042a69.jpg.webp"));
-        slider_view.create(getSupportFragmentManager(), models);
+        viewModel = new ViewModelProvider(mActivity).get(RequestViewModel.class);
+        viewModel.init(mActivity);
+        viewModel.loadMyRequestDetail(mainModel.getId()).observe(mActivity, myRequestDetailModel -> {
+            detailModel = myRequestDetailModel;
 
-        buildInfoView("Kategori","Bags");
-        buildInfoView("Waktu Pengiriman","1-4 hari");
-        buildInfoView("Pengiriman","Semua Ekspedisi");
-        buildInfoView("Referensi Website","-");
-        buildInfoView("Pembayaran","Semua Cara Pembayaran");
+            tv_name.setText(detailModel.getProductName());
+            tv_metric.setText(detailModel.getMetric());
+            tv_qty.setText(String.valueOf(detailModel.getQuantity()));
+            tv_price.setText(MyCurrency.toCurrnecy("Rp", detailModel.getTargetPrice()));
+            tv_description.setText(detailModel.getDescription());
+            tv_creator.setText(detailModel.getRequestByName());
+            if (detailModel.getCity() != null){
+                tv_address.setText(detailModel.getCity()+", "+ detailModel.getProvince());
+            }
 
 
-        ArrayList<ChoiceModel>  keywords = new ArrayList<>();
-        keywords.add(new ChoiceModel("Women Bag"));
-        keywords.add(new ChoiceModel("Tas Cewe"));
-        keywords.add(new ChoiceModel("Asesoris Wanita"));
-        keywords.add(new ChoiceModel("Perhiasan"));
-        keywords.add(new ChoiceModel("Pakaian"));
-        chip_view.create(keywords, 2, 1, R.color.grey3, R.color.white,R.color.black);
+            Date created = Utility.convert2Date(detailModel.getRequestDate(), "yyyy-MM-dd HH:mm");
+            String createdInfo = getResources().getString(R.string.date_created)+" : "+ Utility.getDateString(created,"dd MMM yyyy");
+            tv_created.setText(createdInfo);
 
-        String createdInfo = getResources().getString(R.string.date_created)+" : "+ Utility.getDateString(new Date(),"dd MMM yyyy");
-        tv_created.setText(createdInfo);
+            buildInfoView("Kategori", detailModel.getCategory());
+            buildInfoView("Waktu Pengiriman",detailModel.getDeliveryTime());
+            buildInfoView("Pengiriman", detailModel.getShippingMethod());
+            buildInfoView("Referensi Website",detailModel.getReferenceLink());
+            buildInfoView("Pembayaran",detailModel.getPaymentMethod());
+
+            ArrayList<ChoiceModel>  keywords = new ArrayList<>();
+            for (MyRequestDetailModel.Attributes attributes : detailModel.getKeywords()){
+                keywords.add(new ChoiceModel(attributes.getValue()));
+                chip_view.create(keywords, 2, 1, R.color.grey3, R.color.white,R.color.black);
+            }
+
+            ArrayList<ImageModel> models = new ArrayList<>();
+            for (MyRequestDetailModel.Attributes attributes : detailModel.getImages()){
+                String endPoint =  new EndpointURL(mActivity).getBaseUrl();
+                Log.d(TAG,"attributes "+attributes.getValue());
+                String url = endPoint + attributes.getValue().replace("../","");
+                models.add(new ImageModel(url));
+
+            }
+            slider_view.create(getSupportFragmentManager(), models);
+        });
 
     }
 
@@ -154,6 +189,21 @@ public class DetailRequestActivity extends MyActivity {
 
             Utility.showToastError(mActivity,"WhatsApp tidak ditemukan");
         }
+    }
+
+    private void openMap(){
+        if (detailModel.getAddress() == null){
+            Utility.showAlertError(mActivity,"Alamat tidak ditemukan");
+            return;
+        }
+        double destinationLatitude = Double.parseDouble(detailModel.getLatitude());
+        double destinationLongitude = Double.parseDouble(detailModel.getLongitude());
+        String label = detailModel.getRequestByName();
+
+        String uri = "geo:" + destinationLatitude + "," + destinationLongitude + "?q=" + destinationLatitude + "," + destinationLongitude + "(" + label + ")";
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        intent.setPackage("com.google.android.apps.maps");
+        mActivity.startActivity(intent);
     }
 
     private void buildInfoView(String key, String value){

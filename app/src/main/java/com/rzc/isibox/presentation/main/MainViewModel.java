@@ -1,11 +1,16 @@
 package com.rzc.isibox.presentation.main;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.rzc.isibox.connection.api.EndpointURL;
+import com.rzc.isibox.connection.api.ErrorCode;
+import com.rzc.isibox.connection.api.PostManager;
+import com.rzc.isibox.data.VariableStatic;
 import com.rzc.isibox.master.MyViewModel;
 import com.rzc.isibox.tools.Utility;
 
@@ -24,19 +29,27 @@ public class MainViewModel extends MyViewModel {
         MutableLiveData<ArrayList<MainModel>> liveData = new MutableLiveData<>();
         ArrayList<MainModel> list = new ArrayList<>();
 
-        String sData = Utility.loadJSONFromAsset(mActivity, "dummyData.json");
-        try {
-            JSONArray ja = new JSONArray(sData);
-            for (int i=0; i<ja.length(); i++){
-                JSONObject jo = ja.getJSONObject(i);
-                MainModel model = new MainModel().fromJson(jo, MainModel.class);
-                list.add(model);
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        liveData.postValue(list);
+        String endPoint =  new EndpointURL(mActivity).getBaseUrl();
 
+        PostManager post = new PostManager(mActivity, VariableStatic.API_HOME);
+        post.addParam("type","main");
+        post.exPost();
+        post.setOnReceiveListener(apiResponse -> {
+            if (apiResponse.getCode() == ErrorCode.OK_200){
+                try {
+                    JSONArray ja = apiResponse.getData().getJSONArray("data");
+                    for (int i=0; i<ja.length(); i++){
+                        JSONObject jo = ja.getJSONObject(i);
+                        MainModel model = new MainModel().fromJson(jo, MainModel.class);
+                        model.setProductImg(endPoint + model.getProductImg());
+                        list.add(model);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+            liveData.postValue(list);
+        });
         return liveData;
     }
 }

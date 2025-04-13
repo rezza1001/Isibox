@@ -2,7 +2,7 @@ package com.rzc.isibox.connection.api;
 
 public enum ConnectionCfg {
 
-    PRODUCTION("Production", "https://apiapps.isibox.id/");
+    PRODUCTION("Production", "https://isibox.id/isibox.id/admin/");
 
     private final String name;
     private final String url;

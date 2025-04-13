@@ -2,27 +2,22 @@ package com.rzc.isibox.presentation.request;
 
 import android.content.Intent;
 import android.os.Handler;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.rzc.isibox.R;
+import com.rzc.isibox.connection.api.ErrorCode;
+import com.rzc.isibox.data.Global;
 import com.rzc.isibox.master.MyActivity;
-import com.rzc.isibox.presentation.component.AlertDialog;
+import com.rzc.isibox.presentation.account.AddressAddActivity;
+import com.rzc.isibox.presentation.account.model.CustomerAddressModel;
 import com.rzc.isibox.presentation.component.ConfirmDialog;
-import com.rzc.isibox.presentation.component.Loading;
 import com.rzc.isibox.presentation.component.MyButton;
 import com.rzc.isibox.presentation.component.MyEdiText;
 import com.rzc.isibox.presentation.component.MyRelativeLayout;
@@ -30,6 +25,10 @@ import com.rzc.isibox.presentation.component.chip.ChipFilterView;
 import com.rzc.isibox.presentation.component.chip.ChoiceModel;
 import com.rzc.isibox.presentation.component.option.OptionData;
 import com.rzc.isibox.presentation.component.option.OptionDialog;
+import com.rzc.isibox.presentation.request.model.RequestParamModel;
+import com.rzc.isibox.presentation.request.view.AddOptionDialog;
+import com.rzc.isibox.presentation.request.vm.ImageViewModel;
+import com.rzc.isibox.presentation.request.vm.RequestViewModel;
 import com.rzc.isibox.tools.Utility;
 
 import java.util.ArrayList;
@@ -37,18 +36,21 @@ import java.util.ArrayList;
 public class RequestFormActivity2 extends MyActivity {
 
     MyButton btn_next;
-    TextView tv_sendingMethod;
-    MyEdiText edt_timeSend,et_payment;
+    TextView tv_sendingMethod, tv_address;
+    MyEdiText edt_timeSend,et_payment, et_address;
     EditText et_keyword;
     MyRelativeLayout rv_keyword,rv_tambah;
     ImageView iv_sendingMethod;
-
-    ArrayList<String> listKeywords = new ArrayList<>();
-    RequestViewModel viewModel;
     ChipFilterView chip_view;
     ArrayList<OptionData> listSendingTime = new ArrayList<>();
     ArrayList<OptionData> listSendingMethod = new ArrayList<>();
     ArrayList<OptionData> listPaymentMethod = new ArrayList<>();
+
+    RequestParamModel requestParam;
+
+    RequestViewModel viewModel;
+    ImageViewModel imageViewModel;
+
     @Override
     protected int setLayout() {
         return R.layout.request_activity_request2;
@@ -73,6 +75,10 @@ public class RequestFormActivity2 extends MyActivity {
         rv_tambah = findViewById(R.id.rv_tambah);
         chip_view  = findViewById(R.id.chip_view);
 
+        et_address = findViewById(R.id.et_address);
+        et_address.create(MyEdiText.TYPE.SELECT, "Alamat");
+        tv_address = findViewById(R.id.tv_address);
+
         chip_view.create();
 
 
@@ -89,52 +95,49 @@ public class RequestFormActivity2 extends MyActivity {
             tambahChip(et_keyword.getText().toString());
             et_keyword.setText("");
         });
-        et_keyword.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int i, KeyEvent event) {
-                if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (i == EditorInfo.IME_ACTION_DONE)) {
-                    tambahChip(textView.getText().toString());
-                    et_keyword.setText("");
-                    Log.d("CACAOKAN","Enter pressed "+ textView.getText());
-                }
-                return false;
+
+        et_keyword.setOnEditorActionListener((textView, i, event) -> {
+            if ((event != null && (event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) || (i == EditorInfo.IME_ACTION_DONE)) {
+                tambahChip(textView.getText().toString());
+                et_keyword.setText("");
             }
+            return false;
         });
 
+        et_address.setOnActionListener(view -> checkAddress());
+
     }
-
-    private void tambahChip(String text){
-        if (text .isEmpty()){
-            Utility.showToastError(mActivity,"Keyword tidak boleh kosong");
-
-            return;
-        }
-        ChoiceModel model = new ChoiceModel();
-
-        model.setName(text);
-
-        chip_view.addChip(model);
-    }
-
-
-
-
-
-
 
     @Override
     protected void initialData() {
+        requestParam = (RequestParamModel) getIntent().getSerializableExtra(Global.DATA);
+
         viewModel = new ViewModelProvider(mActivity).get(RequestViewModel.class);
         viewModel.init(mActivity);
+
+        imageViewModel = new ViewModelProvider(mActivity).get(ImageViewModel.class);
+        imageViewModel.init(mActivity);
 
         listSendingTime.clear();
         viewModel.loadSendingTime().observe(mActivity, optionData -> listSendingTime.addAll(optionData));
 
         listSendingMethod.clear();
-        viewModel.loadSendingMothod().observe(mActivity, optionData -> listSendingMethod.addAll(optionData));
+        viewModel.loadSendingMethod().observe(mActivity, optionData -> listSendingMethod.addAll(optionData));
 
         listPaymentMethod.clear();
         viewModel.listPaymentMethod().observe(mActivity, optionData -> listPaymentMethod.addAll(optionData));
+    }
+
+
+    private void tambahChip(String text){
+        if (text .isEmpty()){
+            Utility.showToastError(mActivity,"Keyword tidak boleh kosong");
+            return;
+        }
+        ChoiceModel model = new ChoiceModel();
+        model.setName(text);
+        model.setKey(text);
+        chip_view.addChip(model);
     }
 
     private void openSendingTime(){
@@ -174,7 +177,7 @@ public class RequestFormActivity2 extends MyActivity {
             }
 
             @Override
-            public void onProces2() {
+            public void onCancel() {
                 dialog.dismiss();
                 changeNumberDialog();
             }
@@ -194,18 +197,106 @@ public class RequestFormActivity2 extends MyActivity {
             }
 
             @Override
-            public void onProces2() {
+            public void onCancel() {
             }
         });
 
     }
     private void send(){
-        Loading.showLoading(mActivity,"Please wait..");
-        broadcastFinish();
-        new Handler().postDelayed(() -> {
-            Loading.cancelLoading();
-            Utility.showToastSuccess(mActivity,"Berhasil di proses");
-            mActivity.finish();
-        },1000);
+        if (isInvalidInput(edt_timeSend)){
+            return;
+        }
+        if (isInvalidInput(et_payment)){
+            return;
+        }
+
+        String delivMethod = tv_sendingMethod.getText().toString().trim();
+        if (delivMethod.isEmpty()){
+            Utility.showAlertError(mActivity, "Metode Pengiriman Harus diisi");
+            return;
+        }
+
+        CustomerAddressModel addressModel = (CustomerAddressModel) et_address.getObject();
+        if (addressModel == null){
+            Utility.showAlertError(mActivity, "Alamat pengiriman harus diisi");
+            return;
+        }
+
+        imageViewModel.buildBase64(requestParam.getImagesPath()).observe(mActivity, strings -> {
+
+            requestParam.setAddress(addressModel);
+            requestParam.setImages(strings);
+            requestParam.setDeliveryTime(edt_timeSend.getValue());
+            requestParam.setPaymentMethod(et_payment.getValue());
+            requestParam.setDeliveryMethod(delivMethod);
+            requestParam.setKeywords(chip_view.getDataArrayList());
+
+            viewModel.requestOrder(requestParam).observe(mActivity, apiResponse -> {
+                broadcastFinish();
+
+                if (apiResponse.getCode() == ErrorCode.OK_200){
+                    Utility.showToastSuccess(mActivity,apiResponse.getMessage());
+                    new Handler().postDelayed(() -> mActivity.finish(),1000);
+                }
+                else {
+                    Utility.showAlertError(mActivity,apiResponse.getMessage());
+                }
+            });
+        });
+    }
+
+    private void checkAddress(){
+        viewModel.loadAddress().observe(mActivity, listAddressResp -> {
+            if (!listAddressResp.isStatus()){
+                showAddNewAlert();
+                return;
+            }
+            showAddressOption(listAddressResp.getList());
+        });
+    }
+
+    private void showAddressOption(ArrayList<CustomerAddressModel> listAddressModel){
+        AddOptionDialog dialog = new AddOptionDialog(mActivity);
+        dialog.show(listAddressModel, model -> {
+            et_address.setValue(model.getLabel());
+            et_address.setObject(model);
+            tv_address.setText(model.getAddress());
+        });
+    }
+
+    private void showAddNewAlert(){
+        ConfirmDialog dialog = new ConfirmDialog(mActivity);
+        dialog.show(ConfirmDialog.TYPE.GREEN,"Penganturan Alamat","Alamat anda belum terdaftar, Silahkan tambah alamat anda", 0);
+        dialog.setTextButton("Tambah","Batal");
+        dialog.setOnActionListener(new ConfirmDialog.OnActionListener() {
+            @Override
+            public void onProcess(String note) {
+                Intent intent = new Intent(mActivity, AddressAddActivity.class);
+                startActivity(intent);
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
+
+    }
+
+
+    private boolean isInvalidInput(MyEdiText et){
+        if (et.getType() == MyEdiText.TYPE.CURRENCY || et.getType() == MyEdiText.TYPE.NUMBER){
+            if (et.getValue().equals("0")){
+                Utility.showAlertError(mActivity, et.getErrorMessage());
+                return true;
+            }
+        }
+        else {
+            if (et.getValue().isEmpty()){
+                Utility.showAlertError(mActivity, et.getErrorMessage());
+                return true;
+            }
+        }
+        return false;
     }
 }

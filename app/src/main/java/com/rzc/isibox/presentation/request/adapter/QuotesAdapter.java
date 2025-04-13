@@ -1,4 +1,4 @@
-package com.rzc.isibox.presentation.request;
+package com.rzc.isibox.presentation.request.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -15,6 +15,8 @@ import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.rzc.isibox.R;
 import com.rzc.isibox.presentation.component.MyRelativeLayout;
+import com.rzc.isibox.data.QuotesStatus;
+import com.rzc.isibox.presentation.request.model.QuotesModel;
 import com.rzc.isibox.tools.MyCurrency;
 
 import java.util.ArrayList;

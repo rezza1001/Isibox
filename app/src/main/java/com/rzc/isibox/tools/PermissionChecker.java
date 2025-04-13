@@ -76,14 +76,12 @@ public class PermissionChecker {
 
 
     public static boolean checkLocation(AppCompatActivity mActivity){
-        String[] PERMISSIONS = new String[0];
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            PERMISSIONS = new String[]{
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION};
-        }
+        String[] PERMISSIONS;
+        PERMISSIONS = new String[]{
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.ACCESS_COARSE_LOCATION};
 
-        if(hasPermissions(mActivity, PERMISSIONS)){
+        if(!hasPermissions(mActivity, PERMISSIONS)){
             ActivityCompat.requestPermissions(mActivity, PERMISSIONS, PERMISSION_BLUETOOTH);
             return false;
         }

@@ -49,6 +49,7 @@
                     android:layout_width="40dp"
                     android:layout_height="40dp"/>
                 <TextView
+                    android:id="@+id/tv_name"
                     android:text="Hi, Stephanie Lee"
                     android:textSize="14sp"
                     android:textColor="@color/black"
@@ -74,6 +75,12 @@
             <com.rzc.isibox.presentation.account.ItemView
                 android:id="@+id/item_setting"
                 android:layout_marginTop="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <com.rzc.isibox.presentation.account.ItemView
+                android:id="@+id/item_address"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="10dp"
                 android:layout_width="match_parent"

@@ -110,7 +110,7 @@ public class PostManager {
 
     public String getApiUrl(){
         StringBuilder param = new StringBuilder();
-        if (headerParams.size() > 0){
+        if (!headerParams.isEmpty()){
             param = new StringBuilder("?");
         }
         for (Bundle bundle : headerParams) {
@@ -290,7 +290,7 @@ public class PostManager {
             Utility.LogDbug(TAG,type+ " "+url+" "+apiUrl);
             if (type.equals("POST")|| type.equals("PUT")){
                 if (accountDB.model.getToken() != null){
-                    mData.put("id", accountDB.model.getUser_id());
+                    mData.put("user_id", accountDB.model.getUser_id());
                     mData.put("token", accountDB.model.getToken());
                 }
                 String parameterData = mData.toString();

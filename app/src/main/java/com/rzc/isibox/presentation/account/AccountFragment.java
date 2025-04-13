@@ -14,7 +14,9 @@ import com.rzc.isibox.presentation.main.SplashScreenActivity;
 
 public class AccountFragment extends MyFragment {
 
-    ItemView item_setting,item_upgrade,item_about,item_logout;
+    ItemView item_setting,item_upgrade,item_about,item_logout, item_address;
+    TextView tv_name;
+
     public static AccountFragment newInstance() {
         Bundle args = new Bundle();
         AccountFragment fragment = new AccountFragment();
@@ -36,17 +38,26 @@ public class AccountFragment extends MyFragment {
         item_about.create(3,"Tentang ISIBOX");
         item_logout = view.findViewById(R.id.item_logout);
         item_logout.create(4,"Logout");
+        item_address = view.findViewById(R.id.item_address);
+        item_address.create(5,"Alamat Pengiriman");
+
+        tv_name = view.findViewById(R.id.tv_name);
     }
 
     @Override
     protected void initListener() {
 
-        item_logout.setOnActionListener(new ItemView.OnActionListener() {
-            @Override
-            public void onAction(int id, String value) {
-                logout();
-            }
+        item_logout.setOnActionListener((id, value) -> logout());
+        item_address.setOnActionListener((id, value) -> {
+            Intent intent = new Intent(mActivity, AddressListActivity.class);
+            startActivity(intent);
         });
+    }
+
+    @Override
+    protected void initData() {
+        String name = "Hi, "+ accountModel.getName();
+        tv_name.setText(name);
     }
 
     private void logout(){
@@ -59,7 +70,7 @@ public class AccountFragment extends MyFragment {
             }
 
             @Override
-            public void onProces2() {
+            public void onCancel() {
 
             }
         });

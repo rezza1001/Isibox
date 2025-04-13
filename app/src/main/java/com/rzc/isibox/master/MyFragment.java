@@ -20,6 +20,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 
+import com.rzc.isibox.connection.db.table.AccountDB;
+import com.rzc.isibox.connection.db.table.AccountModel;
+
 import org.json.JSONObject;
 
 import java.util.Objects;
@@ -28,6 +31,8 @@ public abstract class MyFragment extends Fragment {
 
     protected AppCompatActivity mActivity;
     private View view;
+
+    protected AccountModel accountModel;
     protected String TAG = "MyFragment";
 
 
@@ -35,6 +40,9 @@ public abstract class MyFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mActivity = (AppCompatActivity) getActivity();
+        AccountDB accountDB = new AccountDB();
+        accountDB.getData(mActivity);
+        accountModel = accountDB.model;
 
     }
 

@@ -2,6 +2,7 @@ package com.rzc.isibox.tools;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.ShapeDrawable;
@@ -11,6 +12,7 @@ import android.provider.Settings;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Base64;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
@@ -28,6 +30,9 @@ import com.rzc.isibox.R;
 import com.rzc.isibox.presentation.component.AlertDialog;
 import com.rzc.isibox.presentation.component.MyToast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
@@ -233,6 +238,34 @@ public class Utility {
     @SuppressLint("DiscouragedApi")
     public static int getImageResourceId(Context context, String imageName) {
         return context.getResources().getIdentifier(imageName, "drawable", context.getPackageName());
+    }
+
+    public static String getBase64StringJPEG(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos); // bm is the bitmap object
+        byte[] b = baos.toByteArray();
+        String stringBitmap = Base64.encodeToString(b, Base64.DEFAULT);
+        stringBitmap = "data:image/jpeg;base64," + stringBitmap;
+        return stringBitmap;
+    }
+    public static String getBase64StringPNG(Bitmap bitmap){
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos); // bm is the bitmap object
+        byte[] b = baos.toByteArray();
+        String stringBitmap = Base64.encodeToString(b, Base64.DEFAULT);
+        stringBitmap = "data:image/png;base64," + stringBitmap;
+        return stringBitmap;
+    }
+
+    public static void writeBase64ToFile( String filePath ,String base64Image) {
+        try {
+            FileOutputStream fos = new FileOutputStream(new File(filePath, "base64_image.txt"));
+            fos.write(base64Image.getBytes());
+            fos.close();
+            Log.d("Base64Image", "Base64 string written to file.");
+        } catch (IOException e) {
+            Log.e("Base64Image", "Error writing to file", e);
+        }
     }
 
 }

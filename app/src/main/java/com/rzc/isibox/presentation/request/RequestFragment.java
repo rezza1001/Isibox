@@ -10,14 +10,21 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rzc.isibox.R;
+import com.rzc.isibox.data.Global;
+import com.rzc.isibox.data.VariableStatic;
 import com.rzc.isibox.master.MyFragment;
+import com.rzc.isibox.presentation.component.EmptyView;
+import com.rzc.isibox.presentation.request.adapter.RequestAdapter;
+import com.rzc.isibox.presentation.request.model.RequestListModel;
+import com.rzc.isibox.presentation.request.vm.RequestViewModel;
 
 import java.util.ArrayList;
 
 public class RequestFragment extends MyFragment {
 
 
-    ArrayList<RequestModel> listRequest = new ArrayList<>();
+    EmptyView empty_view;
+    ArrayList<RequestListModel> listRequest = new ArrayList<>();
     RequestAdapter adapter;
 
     RequestViewModel viewModel;
@@ -37,6 +44,9 @@ public class RequestFragment extends MyFragment {
         RecyclerView rcv_data = view.findViewById(R.id.rcv_data);
         rcv_data.setLayoutManager(new LinearLayoutManager(mActivity));
 
+        empty_view = view.findViewById(R.id.empty_view);
+        empty_view.create("Anda belum membuat pesanan. Silahkan buat Request atau Kirim Penawaran untuk bisa mengakses halaman Pesanan");
+
         adapter = new RequestAdapter(listRequest);
         rcv_data.setAdapter(adapter);
 
@@ -45,8 +55,8 @@ public class RequestFragment extends MyFragment {
     @Override
     protected void initListener() {
         adapter.setOnActionListener(data -> {
-            Intent intent = new Intent(mActivity, DetailRequestActivity.class);
-            intent.putExtra("NAMA_REQUEST",data.getOffer());//Ganti sama nama pembuat request
+            Intent intent = new Intent(mActivity, DetailMyRequestActivity.class);
+            intent.putExtra(Global.DATA,data);//Ganti sama nama pembuat request
             startActivity(intent);
         });
     }
@@ -60,6 +70,12 @@ public class RequestFragment extends MyFragment {
         viewModel.loadRequest().observe(mActivity, requestModels -> {
             listRequest.addAll(requestModels);
             adapter.notifyDataSetChanged();
+            if (listRequest.isEmpty()){
+                empty_view.show();
+            }
+            else {
+                empty_view.hide();
+            }
         });
     }
 }

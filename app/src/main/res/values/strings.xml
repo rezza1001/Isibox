@@ -45,4 +45,5 @@
     <string name="keywords">Kata Kunci</string>
     <string name="reference_link">Referensi Link</string>
     <string name="payment">Pembayaran</string>
+    <string name="delivery_address">Alamat Pengiriman</string>
 </resources>

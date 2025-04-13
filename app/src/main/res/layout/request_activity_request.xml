@@ -72,7 +72,7 @@
                 android:layout_marginTop="13dp"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"/>
-            <com.rzc.isibox.presentation.request.ImageChooserView
+            <com.rzc.isibox.presentation.request.view.ImageChooserView
                 android:id="@+id/view_chooserImage"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="10dp"

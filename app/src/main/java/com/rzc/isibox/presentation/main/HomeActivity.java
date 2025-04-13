@@ -1,15 +1,18 @@
 package com.rzc.isibox.presentation.main;
 
+import android.content.Intent;
 import android.widget.FrameLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.rzc.isibox.R;
+import com.rzc.isibox.connection.service.GPSTrackerService;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.account.AccountFragment;
 import com.rzc.isibox.presentation.orders.MainOrdersFragment;
 import com.rzc.isibox.presentation.request.MainReqFragment;
+import com.rzc.isibox.tools.PermissionChecker;
 
 public class HomeActivity extends MyActivity {
 
@@ -27,6 +30,10 @@ public class HomeActivity extends MyActivity {
         menu_bottom.create();
 
         frame_body = findViewById(R.id.frame_body);
+
+        PermissionChecker.checkLocation(mActivity);
+
+        startService(new Intent(mActivity, GPSTrackerService.class));
     }
 
     @Override

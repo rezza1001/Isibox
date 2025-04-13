@@ -104,6 +104,11 @@ public class MyRelativeLayout extends RelativeLayout {
         build();
     }
 
+    public void setLineSize(int size){
+        this.lineSize = size;
+        build();
+    }
+
     public void create(){
         mActivity = scanForActivity(getContext());
     }
