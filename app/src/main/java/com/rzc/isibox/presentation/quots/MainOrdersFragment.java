@@ -1,4 +1,4 @@
-package com.rzc.isibox.presentation.orders;
+package com.rzc.isibox.presentation.quots;
 
 import android.graphics.Color;
 import android.os.Bundle;
@@ -66,14 +66,8 @@ public class MainOrdersFragment extends MyFragment {
 
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         Fragment activeFragment;
-        if (rvSelected == rv_request){
-            activeFragment = MyOrderFragment.newInstance();
-            fragmentTransaction.replace(frame_body.getId(), activeFragment, "orders");
-        }
-        else {
-            activeFragment = CompleteFragment.newInstance();
-            fragmentTransaction.replace(frame_body.getId(), activeFragment, "complete");
-        }
+        activeFragment = MyOrderFragment.newInstance();
+        fragmentTransaction.replace(frame_body.getId(), activeFragment, "orders");
 
         fragmentTransaction.detach(activeFragment);
         fragmentTransaction.attach(activeFragment);

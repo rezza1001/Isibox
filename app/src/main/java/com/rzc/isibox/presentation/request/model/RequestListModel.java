@@ -10,9 +10,12 @@ public class RequestListModel extends MySerializable {
     private String id;
     private String name;
     private String image;
+    private String category;
 
     private String reqDate;
     private int offer = 0;
+    private int status = 0;
+    private long total = 0;
 
     public String getId() {
         return id;
@@ -50,11 +53,39 @@ public class RequestListModel extends MySerializable {
         return offer;
     }
 
+    public void setTotal(long total) {
+        this.total = total;
+    }
+
+    public long getTotal() {
+        return total;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
     public void setOffer(int offer) {
         this.offer = offer;
     }
 
     public Date getExpiredDate(){
+        return Utility.convert2Date(getReqDate(),"yyyy-MM-dd HH:mm");
+    }
+
+    public Date getECreatedDate(){
         return Utility.convert2Date(getReqDate(),"yyyy-MM-dd HH:mm");
     }
 }

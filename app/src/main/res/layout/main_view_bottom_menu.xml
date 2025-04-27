@@ -73,7 +73,7 @@
             android:textColor="@color/black"
             android:textSize="12sp"
             android:fontFamily="@font/roboto_regular"
-            android:text="Orders"
+            android:text="Quots"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>

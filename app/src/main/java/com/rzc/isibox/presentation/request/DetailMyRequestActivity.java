@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -13,7 +14,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.rzc.isibox.R;
 import com.rzc.isibox.connection.api.EndpointURL;
+import com.rzc.isibox.connection.api.ErrorCode;
 import com.rzc.isibox.data.Global;
+import com.rzc.isibox.data.RequestStatus;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.component.ConfirmDialog;
 import com.rzc.isibox.presentation.component.KeyValueView;
@@ -37,7 +40,7 @@ public class DetailMyRequestActivity extends MyActivity {
     ImageSliderView slider_view;
     LinearLayout ln_value;
     ChipFilterView chip_view;
-    TextView tv_name,tv_metric,tv_qty,tv_price,tv_description;
+    TextView tv_name,tv_metric,tv_qty,tv_price,tv_description,tv_status;
     TextView tv_created,tv_address,tv_action;
     RelativeLayout rv_action;
 
@@ -66,8 +69,10 @@ public class DetailMyRequestActivity extends MyActivity {
         tv_qty    = findViewById(R.id.tv_qty);
         tv_price    = findViewById(R.id.tv_price);
         tv_description    = findViewById(R.id.tv_description);
+        tv_status    = findViewById(R.id.tv_status);
 
         tv_address.setText("");
+        tv_status.setVisibility(View.GONE);
     }
 
     @Override
@@ -83,10 +88,12 @@ public class DetailMyRequestActivity extends MyActivity {
         rv_action.setOnClickListener(v->{
             ConfirmDialog dialog = new ConfirmDialog(mActivity);
             dialog.show(ConfirmDialog.TYPE.RED,"Batalkan Pesanan","Apakah anda yakin ingin membatalkan pesanan anda?",R.drawable.icon_md_warning);
+            dialog.showInputNote();
+            dialog.setRequiredNote();
             dialog.setOnActionListener(new ConfirmDialog.OnActionListener() {
                 @Override
                 public void onProcess(String note) {
-
+                    cancelNote(note);
                 }
 
                 @Override
@@ -149,11 +156,23 @@ public class DetailMyRequestActivity extends MyActivity {
 
             }
             slider_view.create(getSupportFragmentManager(), models);
+
+            RequestStatus status = RequestStatus.GetStatusById(myRequestDetailModel.getStatus());
+            if (status == RequestStatus.CANCELED){
+                rv_action.setVisibility(View.GONE);
+                tv_status.setVisibility(View.VISIBLE);
+                tv_status.setText(status.getName());
+            }
         });
-
-
     }
 
+    private void cancelNote(String note){
+        requestViewModel.cancelOrder(requestListModel.getId(), note).observe(mActivity, apiResponse -> {
+            if (apiResponse.getCode() == ErrorCode.OK_200){
+                initialData();
+            }
+        });
+    }
     public void toWhatsapp(){
 
         String phoneNumber = "6281322658091";

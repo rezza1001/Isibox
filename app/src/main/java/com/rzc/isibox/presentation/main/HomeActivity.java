@@ -10,7 +10,7 @@ import com.rzc.isibox.R;
 import com.rzc.isibox.connection.service.GPSTrackerService;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.account.AccountFragment;
-import com.rzc.isibox.presentation.orders.MainOrdersFragment;
+import com.rzc.isibox.presentation.quots.MainOrdersFragment;
 import com.rzc.isibox.presentation.request.MainReqFragment;
 import com.rzc.isibox.tools.PermissionChecker;
 

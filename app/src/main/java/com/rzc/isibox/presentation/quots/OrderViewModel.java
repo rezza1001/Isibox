@@ -1,4 +1,4 @@
-package com.rzc.isibox.presentation.orders;
+package com.rzc.isibox.presentation.quots;
 
 import android.app.Application;
 
@@ -7,6 +7,7 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.rzc.isibox.master.MyViewModel;
+import com.rzc.isibox.presentation.quots.model.QuotesModel;
 import com.rzc.isibox.tools.Utility;
 
 import org.json.JSONArray;
@@ -19,15 +20,15 @@ public class OrderViewModel extends MyViewModel {
         super(application);
     }
 
-    public LiveData<ArrayList<OrderModel>> loadMyOrder(){
-        MutableLiveData<ArrayList<OrderModel>> liveData = new MutableLiveData<>();
+    public LiveData<ArrayList<QuotesModel>> loadQuotes(){
+        MutableLiveData<ArrayList<QuotesModel>> liveData = new MutableLiveData<>();
 
-        String sData = Utility.loadJSONFromAsset(mActivity, "OrderDummy.json");
+        String sData = Utility.loadJSONFromAsset(mActivity, "QuotesDummy.json");
         try {
-            ArrayList<OrderModel> list = new ArrayList<>();
+            ArrayList<QuotesModel> list = new ArrayList<>();
             JSONArray ja = new JSONArray(sData);
             for (int i=0; i< ja.length(); i++){
-                OrderModel model = new OrderModel().fromJson(ja.getJSONObject(i), OrderModel.class);
+                QuotesModel model = new QuotesModel().fromJson(ja.getJSONObject(i), QuotesModel.class);
                 list.add(model);
             }
             liveData.postValue(list);

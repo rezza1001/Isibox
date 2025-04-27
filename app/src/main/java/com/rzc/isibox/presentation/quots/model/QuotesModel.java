@@ -1,4 +1,4 @@
-package com.rzc.isibox.presentation.request.model;
+package com.rzc.isibox.presentation.quots.model;
 
 import com.rzc.isibox.master.MySerializable;
 

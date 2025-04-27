@@ -8,13 +8,16 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.rzc.isibox.R;
+import com.rzc.isibox.data.RequestStatus;
 import com.rzc.isibox.presentation.component.MyRelativeLayout;
 import com.rzc.isibox.presentation.request.model.RequestListModel;
+import com.rzc.isibox.tools.MyCurrency;
 import com.rzc.isibox.tools.Utility;
 
 import java.util.ArrayList;
@@ -42,23 +45,28 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
         RequestListModel data = listProduct.get(position);
         Glide.with(context).load(data.getImage()).into(holder.iv_image);
         holder.tv_name.setText(data.getName());
+        holder.tv_grandTotal.setText(MyCurrency.toCurrnecy(data.getTotal()));
+        holder.tv_category.setText(data.getCategory());
 
-        String sExpired = context.getString(R.string.date_created);
-        sExpired = sExpired +" "+ Utility.getDateString(data.getExpiredDate(),"dd MMM yyyy");
-        holder.tv_expired.setText(sExpired);
+        holder.tv_created.setText(Utility.getDateString(data.getECreatedDate(),"dd MMM yyyy"));
 
         if (data.getOffer() == 0){
-            holder.tv_offer.setText(context.getResources().getString(R.string.no_offer));
-            holder.tv_offer.setTextColor(Color.parseColor("#FFB743"));
+            holder.tv_status.setText(context.getResources().getString(R.string.no_offer));
+            holder.tv_status.setTextColor(Color.parseColor("#FFB743"));
         }
         else {
             String offer = context.getResources().getString(R.string.offer);
             offer = data.getOffer()+" " + offer ;
-            holder.tv_offer.setText(offer);
-            holder.tv_offer.setTextColor(Color.parseColor("#3C84FC"));
+            holder.tv_status.setText(offer);
+            holder.tv_status.setTextColor(Color.parseColor("#3C84FC"));
         }
 
-        holder.rvly_root.setOnClickListener(v -> {
+        RequestStatus status = RequestStatus.GetStatusById(data.getStatus());
+        if (status == RequestStatus.CANCELED){
+            holder.tv_status.setText(status.getName());
+            holder.tv_status.setTextColor(ContextCompat.getColor(context, R.color.red));
+        }
+        holder.rvl_root.setOnClickListener(v -> {
             if (onActionListener != null){
                 onActionListener.onAction(data);
             }
@@ -75,17 +83,19 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder{
         RoundedImageView iv_image;
-        TextView tv_name,tv_offer,tv_expired;
+        TextView tv_name,tv_status,tv_created,tv_grandTotal,tv_category;
 
-        MyRelativeLayout rvly_root;
+        MyRelativeLayout rvl_root;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
             iv_image = itemView.findViewById(R.id.iv_image);
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_offer = itemView.findViewById(R.id.tv_offer);
-            tv_expired = itemView.findViewById(R.id.tv_expired);
-            rvly_root = itemView.findViewById(R.id.rvly_root);
+            tv_status = itemView.findViewById(R.id.tv_status);
+            tv_created = itemView.findViewById(R.id.tv_created);
+            rvl_root = itemView.findViewById(R.id.rvl_root);
+            tv_grandTotal = itemView.findViewById(R.id.tv_grandTotal);
+            tv_category = itemView.findViewById(R.id.tv_category);
 
         }
     }

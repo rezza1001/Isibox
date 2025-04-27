@@ -1,6 +1,8 @@
-package com.rzc.isibox.presentation.orders;
+package com.rzc.isibox.presentation.quots;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -10,21 +12,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.rzc.isibox.R;
 import com.rzc.isibox.master.MyFragment;
 import com.rzc.isibox.presentation.component.EmptyView;
+import com.rzc.isibox.presentation.component.option.OptionData;
+import com.rzc.isibox.presentation.quots.adapter.QuotesAdapter;
+import com.rzc.isibox.presentation.quots.model.QuotesModel;
 
 import java.util.ArrayList;
 
-public class CompleteFragment extends MyFragment {
+public class MyOrderFragment extends MyFragment {
 
     EmptyView empty_view;
-    ArrayList<OrderModel> listOrders = new ArrayList<>();
-    CompleteAdapter adapter;
-
-    RecyclerView rcv_data;
+    ArrayList<QuotesModel> listOrders = new ArrayList<>();
+    QuotesAdapter adapter;
 
     OrderViewModel viewModel;
-    public static CompleteFragment newInstance() {
+    public static MyOrderFragment newInstance() {
         Bundle args = new Bundle();
-        CompleteFragment fragment = new CompleteFragment();
+        MyOrderFragment fragment = new MyOrderFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -35,33 +38,31 @@ public class CompleteFragment extends MyFragment {
 
     @Override
     protected void initLayout(View view) {
+
+        RecyclerView rcv_data = view.findViewById(R.id.rcv_data);
+        rcv_data.setLayoutManager(new LinearLayoutManager(mActivity));
+        adapter = new QuotesAdapter(listOrders);
+        rcv_data.setAdapter(adapter);
+
         empty_view = view.findViewById(R.id.empty_view);
         empty_view.create("Anda belum membuat pesanan. Silahkan buat Reqyest atau Kirim Penawaran untuk bisa mengakses halaman Pesanan. Saya");
-        rcv_data = view.findViewById(R.id.rcv_data);
-
-        rcv_data.setLayoutManager(new LinearLayoutManager(mActivity));
-        adapter = new CompleteAdapter(listOrders);
-        rcv_data.setAdapter(adapter);
     }
 
     @Override
     protected void initListener() {
 
+
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     protected void initData() {
-
         viewModel = new ViewModelProvider(mActivity).get(OrderViewModel.class);
         viewModel.init(mActivity);
 
-        viewModel.loadMyOrder().observe(mActivity, orderModels -> {
+        viewModel.loadQuotes().observe(mActivity, orderModels -> {
             listOrders.clear();
-            for(OrderModel order : orderModels){
-                if(order.getStatusAction() == 4){
-                    listOrders.add(order);
-                }
-            }
+            listOrders.addAll(orderModels);
             adapter.notifyDataSetChanged();
 
             if (listOrders.size() == 0){

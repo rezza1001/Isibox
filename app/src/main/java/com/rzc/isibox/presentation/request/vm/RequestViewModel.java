@@ -15,7 +15,7 @@ import com.rzc.isibox.master.MyViewModel;
 import com.rzc.isibox.presentation.account.model.ListAddressResp;
 import com.rzc.isibox.presentation.component.option.OptionData;
 import com.rzc.isibox.presentation.request.model.MyRequestDetailModel;
-import com.rzc.isibox.presentation.request.model.QuotesModel;
+import com.rzc.isibox.presentation.quots.model.QuotesModel;
 import com.rzc.isibox.presentation.request.model.RequestListModel;
 import com.rzc.isibox.presentation.request.model.RequestParamModel;
 import com.rzc.isibox.tools.Utility;
@@ -151,6 +151,19 @@ public class RequestViewModel extends MyViewModel {
 
         PostManager post = new PostManager(mActivity, VariableStatic.API_NEW_ORDER);
         post.setData(reqModel.toJson());
+        post.exPost();
+        post.setOnReceiveListener(liveData::postValue);
+
+        return liveData;
+    }
+
+    public LiveData<ApiResponse> cancelOrder(String id, String note){
+        MutableLiveData<ApiResponse> liveData = new MutableLiveData<>();
+
+        PostManager post = new PostManager(mActivity, VariableStatic.API_NEW_ORDER);
+        post.addParam("requestId", id);
+        post.addParam("note", note);
+        post.addParam("type", "cancel");
         post.exPost();
         post.setOnReceiveListener(liveData::postValue);
 
