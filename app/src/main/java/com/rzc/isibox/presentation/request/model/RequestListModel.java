@@ -15,6 +15,7 @@ public class RequestListModel extends MySerializable {
     private String reqDate;
     private int offer = 0;
     private int status = 0;
+    private int views = 0;
     private long total = 0;
 
     public String getId() {
@@ -87,5 +88,13 @@ public class RequestListModel extends MySerializable {
 
     public Date getECreatedDate(){
         return Utility.convert2Date(getReqDate(),"yyyy-MM-dd HH:mm");
+    }
+
+    public void setViews(int views) {
+        this.views = views;
+    }
+
+    public int getViews() {
+        return views;
     }
 }

@@ -168,6 +168,7 @@ public class DetailRequestActivity extends MyActivity {
             slider_view.create(getSupportFragmentManager(), models);
         });
 
+        viewModel.viewProduct(mainModel.getId());
     }
 
     public void toWhatsapp(){

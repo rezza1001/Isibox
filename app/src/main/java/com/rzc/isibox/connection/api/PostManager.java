@@ -20,10 +20,12 @@ import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.InetAddress;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -289,6 +291,7 @@ public class PostManager {
             }
             Utility.LogDbug(TAG,type+ " "+url+" "+apiUrl);
             if (type.equals("POST")|| type.equals("PUT")){
+                Utility.LogDbug(TAG,"With Auth");
                 if (accountDB.model.getToken() != null){
                     mData.put("user_id", accountDB.model.getUser_id());
                     mData.put("token", accountDB.model.getToken());
@@ -300,10 +303,15 @@ public class PostManager {
 
                 Utility.LogDbug(TAG,"HOST : "+host+", InetAddress : "+address+", IP : "+ip);
                 Utility.LogDbug(TAG,"data "+ " : "+ parameterData);
-                DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
-                wr.writeBytes(parameterData);
-                wr.flush();
-                wr.close();
+                try {
+                    DataOutputStream wr = new DataOutputStream(httpURLConnection.getOutputStream());
+                    wr.write(parameterData.getBytes(StandardCharsets.UTF_8));
+                    wr.flush();
+                    wr.close();
+                }catch (IOException e){
+                    e.printStackTrace();
+                    Log.e(TAG,"FAILED WRITE DATA "+parameterData);
+                }
             }
 
 

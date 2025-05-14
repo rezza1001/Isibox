@@ -47,6 +47,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
         holder.tv_name.setText(data.getName());
         holder.tv_grandTotal.setText(MyCurrency.toCurrnecy(data.getTotal()));
         holder.tv_category.setText(data.getCategory());
+        holder.tv_view.setText(String.valueOf(data.getViews()));
 
         holder.tv_created.setText(Utility.getDateString(data.getECreatedDate(),"dd MMM yyyy"));
 
@@ -83,7 +84,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
 
     class ViewHolder extends RecyclerView.ViewHolder{
         RoundedImageView iv_image;
-        TextView tv_name,tv_status,tv_created,tv_grandTotal,tv_category;
+        TextView tv_name,tv_status,tv_created,tv_grandTotal,tv_category,tv_view;
 
         MyRelativeLayout rvl_root;
         public ViewHolder(@NonNull View itemView) {
@@ -96,6 +97,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.ViewHold
             rvl_root = itemView.findViewById(R.id.rvl_root);
             tv_grandTotal = itemView.findViewById(R.id.tv_grandTotal);
             tv_category = itemView.findViewById(R.id.tv_category);
+            tv_view = itemView.findViewById(R.id.tv_view);
 
         }
     }

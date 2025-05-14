@@ -1,6 +1,7 @@
 package com.rzc.isibox.presentation.request.vm;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
@@ -58,6 +59,13 @@ public class RequestViewModel extends MyViewModel {
         return liveData;
     }
 
+    public void viewProduct(String reqId){
+        PostManager post = new PostManager(mActivity, VariableStatic.API_ORDER_VIEW);
+        post.addParam("type","view");
+        post.addParam("request_id",reqId);
+        post.exPost();
+    }
+
     public LiveData<MyRequestDetailModel> loadMyRequestDetail(String requestId){
         MutableLiveData<MyRequestDetailModel> liveData = new MutableLiveData<>();
         PostManager post = new PostManager(mActivity, VariableStatic.API_LIST_ORDER);
@@ -81,23 +89,6 @@ public class RequestViewModel extends MyViewModel {
         return liveData;
     }
 
-    public LiveData<ArrayList<QuotesModel>> loadQuotes(){
-        MutableLiveData<ArrayList<QuotesModel>> liveData = new MutableLiveData<>();
-
-        String sData = Utility.loadJSONFromAsset(mActivity, "QuotesDummy.json");
-        try {
-            ArrayList<QuotesModel> list = new ArrayList<>();
-            JSONArray ja = new JSONArray(sData);
-            for (int i=0; i< ja.length(); i++){
-                QuotesModel model = new QuotesModel().fromJson(ja.getJSONObject(i), QuotesModel.class);
-                list.add(model);
-            }
-            liveData.postValue(list);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return liveData;
-    }
 
     public LiveData<ArrayList<OptionData>> loadSendingTime(){
         return loadProductAttribute("delivery time");
