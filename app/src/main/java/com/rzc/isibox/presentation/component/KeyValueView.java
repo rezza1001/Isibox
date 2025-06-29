@@ -37,6 +37,14 @@ public class KeyValueView extends MyView {
         tv_value.setText(value);
     }
 
+    public void setValueGravity(int gravity){
+        tv_value.setGravity(gravity);
+    }
+
+    public void setValue(String value){
+        tv_value.setText(value);
+    }
+
     public void create() {
         super.create();
     }

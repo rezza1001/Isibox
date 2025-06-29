@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundDialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.rzc.isibox.presentation.component.MyRelativeLayout
+        android:id="@+id/rv_body"
+        app:m_color="@color/white"
+        app:m_radiusLeftTop="10"
+        app:m_radiusRightTop="10"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_close_circle"
+                    android:padding="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    app:tint="@color/red" />
+            </RelativeLayout>
+
+            <View
+                android:background="@color/grey5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Penawaran Sudah dikirim"
+                android:paddingBottom="15dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center"
+                android:text="Informasi Penawaran anda"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="13sp"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.rzc.isibox.presentation.component.KeyValueView
+                    android:id="@+id/kv_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <com.rzc.isibox.presentation.component.KeyValueView
+                    android:id="@+id/kv_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <com.rzc.isibox.presentation.component.KeyValueView
+                    android:id="@+id/kv_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <com.rzc.isibox.presentation.component.KeyValueView
+                    android:id="@+id/kv_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <View
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@color/grey5"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+                <TextView
+                    android:gravity="center"
+                    android:text="Informasi Penawar"
+                    android:textColor="@color/black"
+                    android:fontFamily="@font/roboto_light"
+                    android:textSize="13sp"
+                    android:paddingEnd="20dp"
+                    android:paddingStart="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <com.rzc.isibox.presentation.component.KeyValueView
+                    android:id="@+id/kv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <com.rzc.isibox.presentation.component.KeyValueView
+                    android:id="@+id/kv_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <com.rzc.isibox.presentation.component.KeyValueView
+                    android:id="@+id/kv_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <com.rzc.isibox.presentation.component.KeyValueView
+                    android:id="@+id/kv_join"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <com.rzc.isibox.presentation.component.MyButton
+                android:id="@+id/btn_cancel"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"/>
+            <com.rzc.isibox.presentation.component.MyButton
+                android:id="@+id/btn_send"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"/>
+        </LinearLayout>
+    </com.rzc.isibox.presentation.component.MyRelativeLayout>
+
+</RelativeLayout>

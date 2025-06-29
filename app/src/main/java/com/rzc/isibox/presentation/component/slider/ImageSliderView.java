@@ -69,6 +69,7 @@ public class ImageSliderView extends MyView {
 
     public void create(FragmentManager fragmentManager, ArrayList<ImageModel> imageModels) {
         super.create();
+        ln_node.removeAllViews();;
 
         int index = 0;
         adapter = new PagerAdapter(fragmentManager);

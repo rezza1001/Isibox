@@ -249,27 +249,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
-            <TextView
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:fontFamily="@font/roboto_bold"
-                android:text="Penawaran"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-            <TextView
-                android:id="@+id/tv_noBids"
-                android:text="Belum ada penawaran yang masuk"
-                android:padding="10dp"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:fontFamily="@font/quicksand_medium"
-                android:background="#FDF8EC"
-                android:layout_marginStart="15dp"
-                android:layout_marginEnd="15dp"
+            <com.rzc.isibox.presentation.request.view.ListQuotsView
+                android:id="@+id/view_quot"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
@@ -287,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="@font/roboto_bold"
-                    android:text="BATALKAN PENAWARAN"
+                    android:text="BATALKAN PESANAN"
                     android:textColor="@color/white" />
 
             </RelativeLayout>

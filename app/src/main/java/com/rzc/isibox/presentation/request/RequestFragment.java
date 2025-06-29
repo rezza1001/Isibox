@@ -61,7 +61,7 @@ public class RequestFragment extends MyFragment {
     protected void initListener() {
         adapter.setOnActionListener(data -> {
             Intent intent = new Intent(mActivity, DetailMyRequestActivity.class);
-            intent.putExtra(Global.DATA,data);//Ganti sama nama pembuat request
+            intent.putExtra(Global.DATA,data.getId());
             startActivity(intent);
         });
     }

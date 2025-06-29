@@ -64,6 +64,35 @@ public class RequestViewModel extends MyViewModel {
         post.addParam("type","view");
         post.addParam("request_id",reqId);
         post.exPost();
+        post.setOnReceiveListener(apiResponse -> {
+
+        });
+    }
+
+    public LiveData<ApiResponse> sendBid(String reqId, long amount, String comment){
+        MutableLiveData<ApiResponse> liveData = new MutableLiveData<>();
+
+        PostManager post = new PostManager(mActivity, VariableStatic.API_BID);
+        post.addParam("type","request");
+        post.addParam("request_id",reqId);
+        post.addParam("amount",amount);
+        post.addParam("comment",comment);
+        post.exPost();
+        post.setOnReceiveListener(liveData::postValue);
+        return liveData;
+    }
+
+    public LiveData<ApiResponse> cancelBid(String id, String note){
+        MutableLiveData<ApiResponse> liveData = new MutableLiveData<>();
+
+        PostManager post = new PostManager(mActivity, VariableStatic.API_BID);
+        post.addParam("id", id);
+        post.addParam("comment", note);
+        post.addParam("type", "cancel");
+        post.exPost();
+        post.setOnReceiveListener(liveData::postValue);
+
+        return liveData;
     }
 
     public LiveData<MyRequestDetailModel> loadMyRequestDetail(String requestId){

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundDialog"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <com.rzc.isibox.presentation.component.MyRelativeLayout
+        android:id="@+id/rv_body"
+        app:m_color="@color/white"
+        app:m_radiusLeftTop="10"
+        app:m_radiusRightTop="10"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dp">
+
+                <ImageView
+                    android:id="@+id/iv_close"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="10dp"
+                    android:src="@drawable/ic_close_circle"
+                    android:padding="10dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    app:tint="@color/red" />
+            </RelativeLayout>
+
+            <View
+                android:background="@color/grey5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"/>
+
+            <TextView
+                android:textSize="16sp"
+                android:gravity="center"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_medium"
+                android:text="Konfirmasi pengiriman penawaran"
+                android:paddingBottom="15dp"
+                android:paddingTop="20dp"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:gravity="center"
+                android:text="Silakan lengkapi catatan jika ada informasi tambahan yang perlu disampaikan"
+                android:textColor="@color/black"
+                android:fontFamily="@font/roboto_light"
+                android:textSize="13sp"
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:paddingEnd="20dp"
+                android:paddingStart="20dp"
+                android:layout_marginTop="25dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:text="Nilai Penawaran"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="13sp"
+                    android:textColor="@color/primary"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.rzc.isibox.presentation.component.MyEdiText
+                    android:id="@+id/et_price"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
+                    android:text="Catatan"
+                    android:fontFamily="@font/roboto_regular"
+                    android:textSize="13sp"
+                    android:layout_marginTop="15dp"
+                    android:textColor="@color/primary"
+                    android:layout_marginBottom="8dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+                <com.rzc.isibox.presentation.component.MyEdiText
+                    android:id="@+id/et_note"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <com.rzc.isibox.presentation.component.MyButton
+                android:id="@+id/btn_send"
+                android:layout_marginEnd="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"/>
+        </LinearLayout>
+    </com.rzc.isibox.presentation.component.MyRelativeLayout>
+
+</RelativeLayout>

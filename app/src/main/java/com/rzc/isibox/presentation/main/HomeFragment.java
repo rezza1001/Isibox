@@ -56,7 +56,7 @@ public class HomeFragment extends MyFragment {
 
         adapter.setOnSelectedListener(data -> {
             Intent intent = new Intent(mActivity, DetailRequestActivity.class);
-            intent.putExtra(Global.DATA, data);
+            intent.putExtra(Global.DATA, data.getId());
             startActivity(intent);
         });
 

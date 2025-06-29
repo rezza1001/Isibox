@@ -3,6 +3,7 @@ package com.rzc.isibox.presentation.request.model;
 import com.rzc.isibox.master.MySerializable;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MyRequestDetailModel extends MySerializable {
 
@@ -27,9 +28,12 @@ public class MyRequestDetailModel extends MySerializable {
     private String requestByName;
     private String province;
     private String city;
+    private String phone;
     private int offer;
     private ArrayList<Attributes> keywords = new ArrayList<>();
     private ArrayList<Attributes> images = new ArrayList<>();
+
+    private Bid bid;
 
     public String getRequestID() {
         return RequestID;
@@ -223,6 +227,22 @@ public class MyRequestDetailModel extends MySerializable {
         this.city = city;
     }
 
+    public void setBid(Bid bid) {
+        this.bid = bid;
+    }
+
+    public Bid getBid() {
+        return bid;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
     public static class Attributes {
         String value;
 
@@ -232,6 +252,54 @@ public class MyRequestDetailModel extends MySerializable {
 
         public void setValue(String value) {
             this.value = value;
+        }
+    }
+
+    public static class Bid{
+        int BidID;
+        long BidAmount;
+        int Status;
+        String Comments;
+        String CreatedAt;
+
+        public int getBidID() {
+            return BidID;
+        }
+
+        public void setBidID(int bidID) {
+            BidID = bidID;
+        }
+
+        public long getBidAmount() {
+            return BidAmount;
+        }
+
+        public void setBidAmount(long bidAmount) {
+            BidAmount = bidAmount;
+        }
+
+        public int getStatus() {
+            return Status;
+        }
+
+        public void setStatus(int status) {
+            Status = status;
+        }
+
+        public String getComments() {
+            return Comments;
+        }
+
+        public void setComments(String comments) {
+            Comments = comments;
+        }
+
+        public String getCreatedAt() {
+            return CreatedAt;
+        }
+
+        public void setCreatedAt(String createdAt) {
+            CreatedAt = createdAt;
         }
     }
 }

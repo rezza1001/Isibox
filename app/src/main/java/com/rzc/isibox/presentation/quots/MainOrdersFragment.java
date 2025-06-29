@@ -66,7 +66,7 @@ public class MainOrdersFragment extends MyFragment {
 
         FragmentTransaction fragmentTransaction = getChildFragmentManager().beginTransaction();
         Fragment activeFragment;
-        activeFragment = MyOrderFragment.newInstance();
+        activeFragment = QuotFragment.newInstance();
         fragmentTransaction.replace(frame_body.getId(), activeFragment, "orders");
 
         fragmentTransaction.detach(activeFragment);

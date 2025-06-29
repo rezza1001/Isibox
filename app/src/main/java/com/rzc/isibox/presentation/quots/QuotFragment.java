@@ -1,8 +1,8 @@
 package com.rzc.isibox.presentation.quots;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -10,24 +10,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.rzc.isibox.R;
+import com.rzc.isibox.data.Global;
 import com.rzc.isibox.master.MyFragment;
 import com.rzc.isibox.presentation.component.EmptyView;
-import com.rzc.isibox.presentation.component.option.OptionData;
 import com.rzc.isibox.presentation.quots.adapter.QuotesAdapter;
 import com.rzc.isibox.presentation.quots.model.QuotesModel;
+import com.rzc.isibox.presentation.request.DetailRequestActivity;
 
 import java.util.ArrayList;
 
-public class MyOrderFragment extends MyFragment {
+public class QuotFragment extends MyFragment {
 
     EmptyView empty_view;
     ArrayList<QuotesModel> listOrders = new ArrayList<>();
     QuotesAdapter adapter;
 
-    OrderViewModel viewModel;
-    public static MyOrderFragment newInstance() {
+    QuotViewModel viewModel;
+    public static QuotFragment newInstance() {
         Bundle args = new Bundle();
-        MyOrderFragment fragment = new MyOrderFragment();
+        QuotFragment fragment = new QuotFragment();
         fragment.setArguments(args);
         return fragment;
     }
@@ -50,22 +51,39 @@ public class MyOrderFragment extends MyFragment {
 
     @Override
     protected void initListener() {
-
+        adapter.setOnActionListener(model -> {
+            Intent intent = new Intent(mActivity, DetailRequestActivity.class);
+            intent.putExtra(Global.DATA,model.getId());
+            startActivity(intent);
+        });
 
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (viewModel == null){
+            return;
+        }
+        refreshData();
+    }
+
+
     @Override
     protected void initData() {
-        viewModel = new ViewModelProvider(mActivity).get(OrderViewModel.class);
+        viewModel = new ViewModelProvider(mActivity).get(QuotViewModel.class);
         viewModel.init(mActivity);
+        refreshData();
+    }
 
+    @SuppressLint("NotifyDataSetChanged")
+    private void refreshData(){
         viewModel.loadQuotes().observe(mActivity, orderModels -> {
             listOrders.clear();
             listOrders.addAll(orderModels);
             adapter.notifyDataSetChanged();
 
-            if (listOrders.size() == 0){
+            if (listOrders.isEmpty()){
                 empty_view.show();
             }
             else {

@@ -14,12 +14,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.makeramen.roundedimageview.RoundedImageView;
 import com.rzc.isibox.R;
+import com.rzc.isibox.data.BidStatus;
 import com.rzc.isibox.presentation.component.MyRelativeLayout;
 import com.rzc.isibox.data.QuotesStatus;
 import com.rzc.isibox.presentation.quots.model.QuotesModel;
 import com.rzc.isibox.tools.MyCurrency;
+import com.rzc.isibox.tools.Utility;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder>{
 
@@ -49,13 +52,17 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
         holder.tv_qty.setText(MyCurrency.toCurrnecy(data.getQty()));
         holder.tv_price.setText(MyCurrency.toCurrnecy(data.getPriceTarget()));
 
-        holder.tv_status.setText(data.getStatusName());
-        QuotesStatus status = QuotesStatus.getById(data.getStatus());
-        if (status == QuotesStatus.NEW){
+        Date date = Utility.convert2Date(data.getRequestDate(),"yyyy-MM-dd HH:mm");
+        holder.tv_date.setText(Utility.getDateString(date,"dd MMM yyyy"));
+
+        BidStatus status  = BidStatus.GetStatusById(data.getStatus());
+
+        holder.tv_status.setText(status.getName());
+        if (status == BidStatus.REQUEST){
             holder.tv_status.setTextColor(ContextCompat.getColor(context, R.color.yellow1));
             holder.rv_status.setLineColor(ContextCompat.getColor(context, R.color.yellow1));
         }
-        else if (status == QuotesStatus.REJECTED){
+        else if (status == BidStatus.REJECT){
             holder.tv_status.setTextColor(ContextCompat.getColor(context, R.color.red));
             holder.rv_status.setLineColor(ContextCompat.getColor(context, R.color.red));
         }
@@ -64,6 +71,11 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
             holder.rv_status.setLineColor(ContextCompat.getColor(context, R.color.grey1));
         }
 
+        holder.rv_action.setOnClickListener(v -> {
+            if (onActionListener != null){
+                onActionListener.OnAction(data);
+            }
+        });
     }
 
 
@@ -75,8 +87,8 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
     static class ViewHolder extends RecyclerView.ViewHolder{
         RoundedImageView iv_image;
         ImageView iv_flag;
-        TextView tv_name,tv_user,tv_location,tv_qty,tv_price,tv_status;
-        MyRelativeLayout rv_status;
+        TextView tv_name,tv_user,tv_location,tv_qty,tv_price,tv_status,tv_date;
+        MyRelativeLayout rv_status, rv_action;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -89,7 +101,18 @@ public class QuotesAdapter extends RecyclerView.Adapter<QuotesAdapter.ViewHolder
             tv_price = itemView.findViewById(R.id.tv_price);
             rv_status = itemView.findViewById(R.id.rv_status);
             tv_status = itemView.findViewById(R.id.tv_status);
+            tv_date = itemView.findViewById(R.id.tv_date);
+            rv_action = itemView.findViewById(R.id.rv_action);
 
         }
+    }
+
+    private OnActionListener onActionListener;
+    public void setOnActionListener(OnActionListener onActionListener){
+        this.onActionListener = onActionListener;
+    }
+
+    public interface OnActionListener{
+        void OnAction(QuotesModel model);
     }
 }

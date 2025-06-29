@@ -1,8 +1,6 @@
 package com.rzc.isibox.presentation.request;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -25,7 +23,7 @@ import com.rzc.isibox.presentation.component.chip.ChoiceModel;
 import com.rzc.isibox.presentation.component.slider.ImageModel;
 import com.rzc.isibox.presentation.component.slider.ImageSliderView;
 import com.rzc.isibox.presentation.request.model.MyRequestDetailModel;
-import com.rzc.isibox.presentation.request.model.RequestListModel;
+import com.rzc.isibox.presentation.request.view.ListQuotsView;
 import com.rzc.isibox.presentation.request.view.RequestShareDialog;
 import com.rzc.isibox.presentation.request.vm.RequestViewModel;
 import com.rzc.isibox.tools.MyCurrency;
@@ -43,10 +41,12 @@ public class DetailMyRequestActivity extends MyActivity {
     TextView tv_name,tv_metric,tv_qty,tv_price,tv_description,tv_status;
     TextView tv_created,tv_address,tv_action;
     RelativeLayout rv_action;
+    ListQuotsView view_quot;
 
     RequestViewModel requestViewModel;
+    MyRequestDetailModel myRequestDetailModel;
 
-    RequestListModel requestListModel;
+    String mRequestId;
 
     @Override
     protected int setLayout() {
@@ -70,6 +70,7 @@ public class DetailMyRequestActivity extends MyActivity {
         tv_price    = findViewById(R.id.tv_price);
         tv_description    = findViewById(R.id.tv_description);
         tv_status    = findViewById(R.id.tv_status);
+        view_quot    = findViewById(R.id.view_quot);
 
         tv_address.setText("");
         tv_status.setVisibility(View.GONE);
@@ -108,18 +109,22 @@ public class DetailMyRequestActivity extends MyActivity {
     @SuppressLint("SetTextI18n")
     @Override
     protected void initialData() {
-        requestListModel = (RequestListModel) getIntent().getSerializableExtra(Global.DATA);
-        if (requestListModel == null){
+        mRequestId = getIntent().getStringExtra(Global.DATA);
+        if (mRequestId == null){
             mActivity.finish();
             return;
         }
 
+        ln_value.removeAllViews();
+
         requestViewModel = new ViewModelProvider(mActivity).get(RequestViewModel.class);
         requestViewModel.init(mActivity);
-        requestViewModel.loadMyRequestDetail(requestListModel.getId()).observe(mActivity, myRequestDetailModel -> {
+        requestViewModel.loadMyRequestDetail(mRequestId).observe(mActivity, myRequestDetailModel -> {
             if (myRequestDetailModel.getRequestID() == null){
                 return;
             }
+
+            this.myRequestDetailModel = myRequestDetailModel;
 
             tv_name.setText(myRequestDetailModel.getProductName());
             tv_metric.setText(myRequestDetailModel.getMetric());
@@ -163,35 +168,17 @@ public class DetailMyRequestActivity extends MyActivity {
                 tv_status.setVisibility(View.VISIBLE);
                 tv_status.setText(status.getName());
             }
+
+            view_quot.create(mRequestId);
         });
     }
 
     private void cancelNote(String note){
-        requestViewModel.cancelOrder(requestListModel.getId(), note).observe(mActivity, apiResponse -> {
+        requestViewModel.cancelOrder(myRequestDetailModel.getRequestID(), note).observe(mActivity, apiResponse -> {
             if (apiResponse.getCode() == ErrorCode.OK_200){
                 initialData();
             }
         });
-    }
-    public void toWhatsapp(){
-
-        String phoneNumber = "6281322658091";
-
-        String message = "Halo, saya tertarik dengan produk Anda!";
-
-
-        String url = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + Uri.encode(message);
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
-
-
-        try {
-            startActivity(intent);
-        } catch (Exception e) {
-
-            Utility.showToastError(mActivity,"WhatsApp tidak ditemukan");
-        }
     }
 
     private void buildInfoView(String key, String value){

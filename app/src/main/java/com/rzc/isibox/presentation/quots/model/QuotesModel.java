@@ -7,10 +7,10 @@ public class QuotesModel extends MySerializable {
     private String name;
     private String image;
     private int status;
-    private String statusName;
     private String locale;
     private String address;
     private String user;
+    private String requestDate;
     private int qty;
     private long priceTarget;
 
@@ -46,13 +46,6 @@ public class QuotesModel extends MySerializable {
         this.status = status;
     }
 
-    public String getStatusName() {
-        return statusName;
-    }
-
-    public void setStatusName(String statusName) {
-        this.statusName = statusName;
-    }
 
     public String getLocale() {
         return locale;
@@ -92,5 +85,13 @@ public class QuotesModel extends MySerializable {
 
     public void setPriceTarget(long priceTarget) {
         this.priceTarget = priceTarget;
+    }
+
+    public void setRequestDate(String requestDate) {
+        this.requestDate = requestDate;
+    }
+
+    public String getRequestDate() {
+        return requestDate;
     }
 }

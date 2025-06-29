@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright (c) 2025. Rezza Developer
+  -->
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_emptyBids"
+        android:text="Belum ada penawaran yang masuk"
+        android:padding="10dp"
+        android:textSize="14sp"
+        android:visibility="gone"
+        android:textColor="@color/black"
+        android:fontFamily="@font/quicksand_medium"
+        android:background="#FDF8EC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <LinearLayout
+        android:id="@+id/ln_lsitQuot"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+       <RelativeLayout
+           android:paddingEnd="10dp"
+           android:paddingStart="10dp"
+           android:layout_width="match_parent"
+           android:layout_height="45dp">
+           <TextView
+               android:id="@+id/tv_qtyQuot"
+               android:text="Penawaran (0)"
+               android:layout_centerVertical="true"
+               android:textColor="@color/black"
+               android:textSize="16sp"
+               android:fontFamily="@font/roboto_bold"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"/>
+
+           <TextView
+               android:id="@+id/tv_viewAll"
+               android:text="Lihat Semua"
+               android:textSize="14sp"
+               android:gravity="center"
+               android:textColor="@color/primary"
+               android:fontFamily="@font/roboto_medium"
+               android:layout_alignParentEnd="true"
+               android:layout_width="wrap_content"
+               android:layout_height="match_parent"/>
+       </RelativeLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcv_data"
+            android:nestedScrollingEnabled="false"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

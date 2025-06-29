@@ -9,10 +9,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.rzc.isibox.R;
 import com.rzc.isibox.connection.api.EndpointURL;
+import com.rzc.isibox.connection.api.ErrorCode;
 import com.rzc.isibox.data.Global;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.component.ConfirmDialog;
@@ -21,7 +23,8 @@ import com.rzc.isibox.presentation.component.chip.ChipFilterView;
 import com.rzc.isibox.presentation.component.chip.ChoiceModel;
 import com.rzc.isibox.presentation.component.slider.ImageModel;
 import com.rzc.isibox.presentation.component.slider.ImageSliderView;
-import com.rzc.isibox.presentation.main.MainModel;
+import com.rzc.isibox.presentation.quots.dialog.BidsDialog;
+import com.rzc.isibox.presentation.quots.dialog.BidsInfoDialog;
 import com.rzc.isibox.presentation.request.model.MyRequestDetailModel;
 import com.rzc.isibox.presentation.request.view.RequestShareDialog;
 import com.rzc.isibox.presentation.request.vm.RequestViewModel;
@@ -41,7 +44,7 @@ public class DetailRequestActivity extends MyActivity {
     TextView tv_name,tv_metric,tv_qty,tv_price,tv_description;
     RelativeLayout rv_action;
     RequestViewModel viewModel;
-    MainModel mainModel;
+    String requestId;
     MyRequestDetailModel detailModel;
 
     @Override
@@ -81,53 +84,28 @@ public class DetailRequestActivity extends MyActivity {
             dialog.show("Women Bag");
         });
         rv_action.setOnClickListener(v->{
-            ConfirmDialog dialog = new ConfirmDialog(mActivity);
             if(tv_action.getText().equals("KIRIM PENAWARAN")){
-                dialog.show(ConfirmDialog.TYPE.GREEN,"Kirim Penawaran","Untuk mengirim penawaran akan dilanjutkan via aplikasi Whatsapp",R.drawable.ic_whatsapp);
-                dialog.setTextAction("Batalkan","Lanjutkan");
-                dialog.setOnActionListener(new ConfirmDialog.OnActionListener() {
-                    @Override
-                    public void onProcess(String note) {
-                        toWhatsapp();
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-                });
-
-            }else{
-                dialog.show(ConfirmDialog.TYPE.RED,"Mengubah status","Apakah anda yakin ingin mengubah status barang menjadi sudah dipesan?",R.drawable.icon_md_warning);
-                dialog.setOnActionListener(new ConfirmDialog.OnActionListener() {
-                    @Override
-                    public void onProcess(String note) {
-                        Utility.showToastSuccess(mActivity,"Berhasil mengubah status menjadi sudah dipesan");
-                        mActivity.finish();
-                    }
-
-                    @Override
-                    public void onCancel() {
-
-                    }
-                });
+                sendBids();
             }
-
+            else {
+                openMyBids();
+            }
         });
-
     }
 
     @SuppressLint("SetTextI18n")
     @Override
     protected void initialData() {
-        mainModel = (MainModel) getIntent().getSerializableExtra(Global.DATA);
-        if (mainModel == null){
+        requestId = getIntent().getStringExtra(Global.DATA);
+        if (requestId == null){
             mActivity.finish();
             return;
         }
+        ln_value.removeAllViews();
+
         viewModel = new ViewModelProvider(mActivity).get(RequestViewModel.class);
         viewModel.init(mActivity);
-        viewModel.loadMyRequestDetail(mainModel.getId()).observe(mActivity, myRequestDetailModel -> {
+        viewModel.loadMyRequestDetail(requestId).observe(mActivity, myRequestDetailModel -> {
             detailModel = myRequestDetailModel;
 
             tv_name.setText(detailModel.getProductName());
@@ -166,30 +144,72 @@ public class DetailRequestActivity extends MyActivity {
 
             }
             slider_view.create(getSupportFragmentManager(), models);
+
+            if (detailModel.getBid() != null){
+                rv_action.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.grey2));
+                tv_action.setText("Detail Penawaran Anda");
+            }
+            else {
+                rv_action.setBackgroundColor(ContextCompat.getColor(mActivity, R.color.primary));
+                tv_action.setText("KIRIM PENAWARAN");
+            }
+
+            viewModel.viewProduct(detailModel.getRequestID());
         });
 
-        viewModel.viewProduct(mainModel.getId());
+
     }
 
-    public void toWhatsapp(){
+    private void sendBids(){
+        BidsDialog dialog = new BidsDialog(mActivity);
+        dialog.show(detailModel);
+        dialog.setOnActionListener((offering, note) -> {
+            viewModel.sendBid(requestId, offering, note).observe(mActivity, apiResponse -> {
+                if (apiResponse.getCode() == ErrorCode.OK_200){
+                    Utility.showToastSuccess(mActivity,apiResponse.getMessage());
+                    initialData();
+                }
+                else {
+                    Utility.showAlertError(mActivity, apiResponse.getMessage());
+                }
+            });
+        });
+    }
 
-        String phoneNumber = "6281322658091";
+    private void openMyBids(){
+        BidsInfoDialog dialog = new BidsInfoDialog(mActivity);
+        dialog.show(detailModel);
+        dialog.setOnActionListener(() -> {
+            ConfirmDialog confirmDialog = new ConfirmDialog(mActivity);
+            confirmDialog.show(ConfirmDialog.TYPE.RED,"Pembatalan", "Anda yakin akan membatalkan pengajuan penawaran ?", R.drawable.icon_md_warning);
+            confirmDialog.showInputNote();
+            confirmDialog.setRequiredNote();
+            confirmDialog.setOnActionListener(new ConfirmDialog.OnActionListener() {
+                @Override
+                public void onProcess(String note) {
+                    cancel(note);
+                }
 
-        String message = "Halo, saya tertarik dengan produk Anda!";
+                @Override
+                public void onCancel() {
+
+                }
+            });
+        });
+
+    }
 
 
-        String url = "https://api.whatsapp.com/send?phone=" + phoneNumber + "&text=" + Uri.encode(message);
-
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(url));
-
-
-        try {
-            startActivity(intent);
-        } catch (Exception e) {
-
-            Utility.showToastError(mActivity,"WhatsApp tidak ditemukan");
-        }
+    private void cancel(String note){
+        viewModel.cancelBid(detailModel.getBid().getBidID()+"", note).observe(mActivity, apiResponse -> {
+            if (apiResponse.getCode() == ErrorCode.OK_200){
+                Utility.showToastSuccess(mActivity,apiResponse.getMessage());
+                initialData();
+            }
+            else {
+                Utility.showAlertError(mActivity, apiResponse.getMessage());
+            }
+        });
     }
 
     private void openMap(){

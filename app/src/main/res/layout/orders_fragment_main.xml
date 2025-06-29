@@ -6,13 +6,14 @@
     android:layout_height="match_parent">
     <RelativeLayout
         android:id="@+id/rv_header"
+        android:background="@color/primary"
         android:layout_width="match_parent"
         android:layout_height="56dp">
 
         <TextView
             android:text="@string/my_order"
             android:fontFamily="@font/roboto_bold"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="17sp"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
