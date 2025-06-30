@@ -61,6 +61,27 @@
             android:layout_height="match_parent">
 
             <TextView
+                android:text="@string/request_type"
+                android:fontFamily="@font/roboto_medium"
+                android:textSize="14sp"
+                android:gravity="center_vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:background="#F2F7FF"
+                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="25dp"/>
+
+            <com.rzc.isibox.presentation.component.MyEdiText
+                android:id="@+id/et_type"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
                 android:text="@string/photo_product"
                 android:fontFamily="@font/roboto_medium"
                 android:textSize="14sp"
@@ -69,7 +90,7 @@
                 android:paddingEnd="10dp"
                 android:background="#F2F7FF"
                 android:textColor="@color/black"
-                android:layout_marginTop="13dp"
+                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="25dp"/>
             <com.rzc.isibox.presentation.request.view.ImageChooserView

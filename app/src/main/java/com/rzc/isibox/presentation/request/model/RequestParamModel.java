@@ -8,6 +8,8 @@ import java.util.ArrayList;
 
 public class RequestParamModel extends MySerializable {
 
+    @SerializedName("request_type")
+    private String requestType;
     @SerializedName("user_id")
     private String userId;
 
@@ -180,5 +182,13 @@ public class RequestParamModel extends MySerializable {
 
     public void setAddress(CustomerAddressModel address) {
         this.address = address;
+    }
+
+    public void setRequestType(String requestType) {
+        this.requestType = requestType;
+    }
+
+    public String getRequestType() {
+        return requestType;
     }
 }

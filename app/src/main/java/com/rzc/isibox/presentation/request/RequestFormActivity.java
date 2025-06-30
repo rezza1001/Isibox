@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.rzc.isibox.R;
 import com.rzc.isibox.data.Global;
+import com.rzc.isibox.data.OrderType;
 import com.rzc.isibox.master.MyActivity;
 import com.rzc.isibox.presentation.component.MyButton;
 import com.rzc.isibox.presentation.component.MyEdiText;
@@ -21,13 +22,15 @@ import java.util.ArrayList;
 
 public class RequestFormActivity extends MyActivity {
 
-    MyEdiText et_nameProduct,et_description,et_reference,et_qty,et_metric,et_price,et_category;
+    MyEdiText et_type, et_nameProduct,et_description,et_reference,et_qty,et_metric,et_price,et_category;
     ImageChooserView view_chooserImage;
     MyButton btn_next;
 
     RequestViewModel viewModel;
     ArrayList<OptionData> listCategory = new ArrayList<>();
     ArrayList<OptionData> listMetrik = new ArrayList<>();
+
+
     @Override
     protected int setLayout() {
         return R.layout.request_activity_request;
@@ -60,6 +63,9 @@ public class RequestFormActivity extends MyActivity {
         et_category = findViewById(R.id.et_category);
         et_category.create(MyEdiText.TYPE.SELECT, getResources().getString(R.string.category));
 
+        et_type = findViewById(R.id.et_type);
+        et_type.create(MyEdiText.TYPE.SELECT, getResources().getString(R.string.request_type));
+
         btn_next = findViewById(R.id.btn_next);
         btn_next.create(MyButton.TYPE.PRIMARY, getResources().getString(R.string.next));
 
@@ -72,6 +78,7 @@ public class RequestFormActivity extends MyActivity {
         findViewById(R.id.iv_back).setOnClickListener(v -> mActivity.finish());
         et_category.setOnActionListener(view -> openCategory());
         et_metric.setOnActionListener(view -> openMetrik());
+        et_type.setOnActionListener(view -> openType());
         btn_next.setOnMyClickListener(view -> next());
     }
 
@@ -104,7 +111,24 @@ public class RequestFormActivity extends MyActivity {
         dialog.setOnSelectedListener(data -> et_metric.setValue(data.getValue()));
     }
 
+    private void openType(){
+        ArrayList<OptionData> listType = new ArrayList<>();
+        for (OrderType orderType : OrderType.values()){
+            listType.add(new OptionData(orderType.getId(),orderType.getValue()));
+        }
+        OptionDialog dialog = new OptionDialog(mActivity);
+        dialog.show(getResources().getString(R.string.request_type));
+        dialog.setOptionData(listType);
+        dialog.setOnSelectedListener(data -> {
+            et_type.setValue(data.getValue());
+            et_type.setObject(data);
+        });
+    }
+
     private void next(){
+        if (isInvalidInput(et_type)){
+            return;
+        }
         if (isInvalidInput(et_nameProduct)){
             return;
         }
@@ -128,9 +152,12 @@ public class RequestFormActivity extends MyActivity {
             return;
         }
         if (view_chooserImage.getAllPhoto().size() > 6){
-            Utility.showAlertError(mActivity, "Maksimal 6 foto produk !");
+            Utility.showAlertError(
+                    mActivity, "Maksimal 6 foto produk !");
             return;
         }
+
+        OptionData optType = (OptionData) et_type.getObject();
 
         RequestParamModel model = new RequestParamModel();
         model.setProductName(et_nameProduct.getValue());
@@ -141,6 +168,7 @@ public class RequestFormActivity extends MyActivity {
         model.setCategory(et_category.getValue());
         model.setLink(et_reference.getValue());
         model.setImagesPath(view_chooserImage.getAllPhotoPath());
+        model.setRequestType(optType.getId());
 
         Intent intent = new Intent(mActivity, RequestFormActivity2.class);
         intent.putExtra(Global.DATA, model);
